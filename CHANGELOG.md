@@ -7,7 +7,7 @@ description: Central version history for the 6 publicly deployed CMDS system fil
 author:
   - "[[구요한]]"
 date created: 2026-04-01T11:30
-date modified: 2026-07-02
+date modified: 2026-07-12
 tags: [CMDS, system, changelog]
 CMDS: "[[📚 501 Obsidian]]"
 ---
@@ -26,6 +26,36 @@ CMDS: "[[📚 501 Obsidian]]"
 | 🔬 **마이크로 (파일별)** | 각 파일의 evolution | 각 파일 frontmatter `version:` | CLAUDE 3.8, CMDS 2.5, ... |
 
 각 매크로 entry 에는 **그 시점의 9 files version snapshot matrix** 를 포함해 마이크로 ↔ 매크로 매핑이 명시됩니다.
+
+---
+
+## v4.9.4 — 2026-07-12 (CLAUDE.md 경량화 diet)
+
+**트리거**: 사용자 지시 "CLAUDE.md 검토하고 경량화" — 제안 3그룹 (A 파일 내부 중복 / B @import rules 중복 / C 저가치·stale) 중 **A+B 승인** (중복만 제거, 콘텐츠 정책 변경 없음).
+
+**왜 v4.9.4 (patch) 인가**: 스키마·정책·아키텍처 변경 없는 콘텐츠 diet. 삭제분은 전부 같은 파일 내 다른 위치 또는 @import 되는 `.claude/rules/` 에 정본이 존재하는 중복 — 정보 손실 없음. 변경 파일은 CLAUDE.md 1개 (848→722줄, 53.7→48.2KB, token-estimate 14000→12500).
+
+### File Version Snapshot
+
+| File | Version | Δ from v4.9.3 |
+|------|:-------:|:-------------:|
+| CLAUDE.md | **4.5** | ⬆ 경량화 diet — 동기화 8-destination 목록 3회→1회 (ASCII 다이어그램·자동화 플로우 블록 제거, bash 정본 유지) · Claude Settings Sync → directory-structure.md 포인터 압축 · When to Use Which File 리스트 제거 (9-file 표와 중복) · 멤버 별 vault 매핑 표 → 한 줄 · Decision Tree → AGENTS.md 압축형 통일 · frontmatter 필드 리스트·Mermaid 요약·Special Characters 제거 (@import rules 중복) · heredoc description 필드 + 'EOF' quote 버그 픽스 |
+| AGENTS.md | 2.9 | — |
+| ANTIGRAVITY.md | 2.3 | — |
+| CMDS.md | 2.9 | — |
+| 🏛 CMDS Guide.md | 2.8 | — |
+| 🏛 CMDS Head Quarter.md | 1.7 | — |
+| DESIGN.md | 1.2 | — |
+| BRAIN.md *(internal)* | (Gobi-managed) | — |
+| BRAIN_PROMPT.md *(internal)* | (Gobi-managed) | — |
+
+### Changes
+
+- **CLAUDE.md 만 변경** — 그룹 A (파일 내부 중복 5건): 동기화 목록 3회 반복 → 인트로 문단 + bash 명령 (정본) 1세트, When to Use Which File 리스트, 멤버 매핑 표, Special Characters 섹션, Decision Tree 장문형. 그룹 B (@import rules 중복 3건): Claude Settings Sync 트리·이유 (→ directory-structure.md), frontmatter 필드 리스트 (→ frontmatter-standard.md), Mermaid 핵심 3가지 (→ mermaid-rules.md).
+- **별도 최소 픽스**: Vault Commands heredoc — 7필드 표준 위반 (`description` 누락) 보완 + `<< 'EOF'` 인용 때문에 `$(date +%Y-%m-%d)` 가 리터럴로 박히던 기존 버그 수정 (`<< EOF`).
+- **유지 (의도적)**: Pre-Flight / Essential 이중 요약 (AGENTS·ANTIGRAVITY 와 3-파일 parity), 배포 bash 명령 (감사 플레이북이 지정한 동기화 명령 정본), 누락 방지 룰 #1·#2, frontmatter changelog 전체 (역사 기록 무수정 원칙), 그룹 C 후보 (Obsidian CLI·Vault Commands·Canonical Guide References·플러그인 목록 — 사용자가 유지 선택).
+- **웹 surface**: index.html·docs/index.html 버전 문자열 v4.9.3 → v4.9.4.
+- **위성**: ⑥ cmds-vault / ⑦ CMDS_LLM_Wiki dep — 시스템 파일 개수·division·focus axis 등 위성이 참조하는 사실 변경 없음 (CLAUDE.md 내부 중복 정리뿐) → no-op 점검. ⑧ starter-kit 3-place drift — report-only 점검.
 
 ---
 

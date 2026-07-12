@@ -7,7 +7,7 @@ description: "Claude Code specific technical implementation guide. Defines file 
 author:
   - "[[구요한]]"
 date created: 2025-09-27T17:53
-date modified: 2026-07-02
+date modified: 2026-07-12
 tags:
   - CMDS
   - system
@@ -23,12 +23,13 @@ optional-for:
   - search
   - analysis
   - reading
-token-estimate: 14000
+token-estimate: 12500
 CMDS: "[[📚 501 Obsidian]]"
 index: "[[🏛 CMDS Head Quarter]]"
-version: "4.4"
+version: "4.5"
 status: completed
 changelog:
+  - "4.5 (2026-07-12): 경량화 패스 (macro v4.9.4) — 중복 제거 diet (848→722줄, 53.7→48.2KB). (a) 동기화 8-destination 목록 3회 반복 → 1회 (ASCII 다이어그램·자동화 플로우 블록 제거, 인트로 문단+bash 정본 유지), (b) Claude Settings Sync 를 directory-structure.md 정본 포인터로 압축, (c) When to Use Which File 리스트 제거 (9-file 표와 1:1 중복), (d) 멤버 별 vault 매핑 표 → 한 줄 요약, (e) Decision Tree 를 AGENTS.md 압축형으로 통일, (f) frontmatter 필드 리스트·Mermaid 핵심 3가지·Special Characters 섹션 제거 (@import rules 와 중복), (g) AI Integration symlink 서술 압축. 별도 픽스: Vault Commands heredoc 에 description 필드 추가 + 'EOF' quote 제거 ($(date) 미확장 버그). token-estimate 14000→12500 재실측."
   - "4.4 (2026-07-02): 전수 감사 픽스 세트 (macro v4.9.3, Fable 5 멀티에이전트 audit) — (a) tags 회귀 5번째 재수정 (stray 1, 2 inline 재발분 제거·리스트 복원), (b) 동기화 다이어그램 소스 목록에 DESIGN.md 누락 보완, (c) Multi-Vault Architecture bare cross-vault wikilink 2곳 → obsidian URL, (d) /query 크로스-볼트 서술 정정 (mothership /query 는 qmd 기반으로 cross-vault 동작), (e) '91 카테고리' → 실측 87 정정, (f) /inbox 서브폴더 하드카운트 제거, (g) -v2 설명의 v4.2 하드코딩 제거, (h) Guide/HQ @import 표기 2건 wikilink 로 정정 (공백 경로는 import 불가), (i) token-estimate 5800→14000 실측화, (j) /share 스킬 예시에 cmds-sns-promo 반영. 별도 기록: 2026-06-29 편집분은 Pre-Flight Checklist 의 Table blank-line 항목 추가 (blank-line-rules.md 2026-06-27 개정 반영)."
   - "4.3 (2026-06-16): tags 회귀 재수정 (macro v4.9.1) — stray `1, 2` 태그가 v4.9.0 배포 후 inline 포맷(`[CMDS, system, 1, 2]`)으로 재발(2026-06-05). 리스트 포맷 복원. 3.8/4.0/4.1 에 이은 4번째 재발이라 근본 원인(Obsidian inline-tag 변환 추정) 추적 필요. 콘텐츠 변경 없음."
   - "4.2 (2026-05-30): v4.9.0 pass — deploy section 4-way→8-way, ZIP/matrix counts to 6/9, dedup system-files tables."
@@ -47,7 +48,7 @@ changelog:
   - "2.1 (2026-03-30): frontmatter 표준 추가, 백업 경로 이동"
   - "2.0 (2026-03-15): 전면 리뷰, 통계 갱신, GitHub/Web 링크"
 ---
-> **🔄 Last Updated: 2026-07-02** | Backup: `40. Docs/47. CMDS Docs/cmds-system-files/CLAUDE_backup.md` | GitHub: [cmds-system-files](https://github.com/johnfkoo951/cmds-system-files) (코드 히스토리, 자동 배포 아님) | Web: [system.cmdspace.work](https://system.cmdspace.work) (Vercel `cmds-system-files-v2`)
+> **🔄 Last Updated: 2026-07-12** | Backup: `40. Docs/47. CMDS Docs/cmds-system-files/CLAUDE_backup.md` | GitHub: [cmds-system-files](https://github.com/johnfkoo951/cmds-system-files) (코드 히스토리, 자동 배포 아님) | Web: [system.cmdspace.work](https://system.cmdspace.work) (Vercel `cmds-system-files-v2`)
 
 # CLAUDE.md
 
@@ -159,25 +160,7 @@ This vault is accessed from two different Mac environments:
 
 ### Claude Settings Sync (Symlink Strategy) — 결정 로그 (2026-04-14)
 
-Obsidian Sync 는 dotfile (`.claude/`) 을 동기화하지 않기 때문에, Claude 설정/스킬/룰을 두 Mac 간 공유하려면 **볼트 내 경로** 에 원본을 둬야 한다.
-
-**결정**: `90. Settings/94. Agent Settings/claude/` 를 **원본** 으로 두고, 각 Mac 의 `.claude/` 하위 폴더 4개를 이 원본으로 향하는 심볼릭 링크로 연결한다.
-
-```
-.claude/
-├── agents   → ../90. Settings/94. Agent Settings/claude/agents    (symlink)
-├── commands → ../90. Settings/94. Agent Settings/claude/commands  (symlink)
-├── rules    → ../90. Settings/94. Agent Settings/claude/rules     (symlink)
-├── skills   → ../90. Settings/94. Agent Settings/claude/skills    (symlink)
-├── settings.json         (머신 로컬 전용 — symlink 안 함)
-├── settings.local.json   (머신 로컬 전용 — symlink 안 함)
-└── sessions/             (머신 로컬 전용 — symlink 안 함)
-```
-
-**이유**:
-- 두 Mac 이 동일한 유저명/볼트명/경로 구조를 쓰므로, 상대 경로 symlink (`../90. Settings/...`) 가 양쪽에서 동일하게 resolve 된다.
-- `settings.json`, `sessions/` 같은 머신 로컬 상태는 공유되면 충돌하므로 symlink 대상에서 제외.
-- 새 Mac 에서 수동 설정하는 법은 `.claude/rules/directory-structure.md` 의 "Symbolic Link" 섹션 참조.
+Obsidian Sync 는 dotfile (`.claude/`) 을 동기화하지 않는다. **결정**: `90. Settings/94. Agent Settings/claude/` 를 **원본** 으로 두고, 각 Mac 의 `.claude/` 하위 4개 폴더 (`agents`/`commands`/`rules`/`skills`) 를 상대 경로 symlink 로 연결한다. `settings.json`·`settings.local.json`·`sessions/` 는 머신 로컬 전용 (symlink 안 함). 트리 구조·이유·새 Mac 수동 설정법은 `.claude/rules/directory-structure.md` 의 "Symbolic Link" 섹션이 정본.
 
 **주의**: Obsidian Sync 가 symlink 자체를 실체 폴더로 복제해버리는 경우가 있다. 새 Mac 에서 처음 볼트를 받으면 `.claude/` 가 일반 폴더일 수 있으니, **각 Mac 마다 symlink 를 수동으로 재설정** 해야 한다.
 
@@ -232,37 +215,7 @@ CMDS 시스템 파일은 **2-layer 버전 시스템** 사용:
 
 #### 동기화 플로우 (볼트 → 8 destinations → 프로덕션)
 
-볼트 원본은 **항상 8 곳에 동기화** — 5 mothership (① 백업 ② 공유 ③ DEV ④ GitHub ⑤ Vercel) + 3 satellite (⑥ cmds-vault starter-kit frontmatter ⑦ CMDS_LLM_Wiki dependency check ⑧ LLM Wiki starter-kit 3-place drift check). 누락하면 외부 배포·공유 문서·위성 스타터킷이 stale. `system-docs-updater` 스킬이 8-way (5 mothership + 3 satellite) fan-out 을 담당.
-
-```
-[볼트 원본 6개 공개]                              [① 백업 — 볼트 내부]
- CLAUDE.md              ┐                         40. Docs/47. CMDS Docs/
- AGENTS.md              │                         cmds-system-files/
- CMDS.md                │  ┌──────────────────→   *_backup.md (복사 그대로)
- 🏛 CMDS Guide.md       │  │
- 🏛 CMDS Head Quarter.md│  │
- DESIGN.md              │  │  ┌───────────────→  [② 공유 — 볼트 내부]
- .claude/rules/*.md (8) │  │  │                   40. Docs/47. CMDS Docs/
-                        │  │  │                   cmds-system-files-share/
-                        │  │  │                   *_share.md (sed sanitize)
-                        ├──┼──┘
-                        │  │  ┌───────────────→  [③ DEV — Vercel 배포 소스]
-                        │  │  │                   /Users/yohankoo/DEV/
-                        │  │  │                   cmds-system-files/files/
-                        │  │  │                   *.md + rules/ + ZIP 재생성
-                        ├──┼──┘
-                        │  │  ┌───────────────→  [④ GitHub — 코드 백업]
-                        │  │  │                   johnfkoo951/cmds-system-files
-                        └──┴──┘                   (수동 git push, 자동 배포 X)
-                                  │
-                                  │ vercel deploy --prod --yes (③ 후)
-                                  ↓
-                          [Vercel] cmds-system-files-v2
-                                  │
-                                  │ 도메인 바인딩 + Cloudflare DNS
-                                  ↓
-                          system.cmdspace.work  (즉시 반영)
-```
+볼트 원본 (6개 공개 파일 + `.claude/rules/*.md` 8개) 은 **항상 8 곳에 동기화** — 5 mothership (① 백업 `40. Docs/47. CMDS Docs/cmds-system-files/*_backup.md` ② 공유 `.../cmds-system-files-share/*_share.md` sanitized ③ DEV `files/` + rules + ZIP ④ GitHub push ⑤ Vercel deploy → `system.cmdspace.work`) + 3 satellite (⑥ cmds-vault starter-kit frontmatter ⑦ CMDS_LLM_Wiki dependency check ⑧ LLM Wiki starter-kit 3-place drift check). 누락하면 외부 배포·공유 문서·위성 스타터킷이 stale. `system-docs-updater` 스킬이 8-way (5 mothership + 3 satellite) fan-out 을 담당. 구체 경로·명령은 아래 배포 명령 (정본) 참조.
 
 > **⚠️ 누락 방지 룰 #1 (8 destinations)**: 시스템 파일 수정 후 ① ~ ⑧ 모두 갱신해야 정합성 유지 (최소 ① + ② + ③ 은 항상, ⑥ cmds-vault frontmatter / ⑦ LLM Wiki dep / ⑧ starter-kit drift 는 점검 필수). ② share 폴더를 빼먹으면 외부에 공유한 sanitized 사본이 outdated 됨 (실제로 2026-04-30~05-03 사이 share 폴더 13~16일 stale 상태로 방치됐었음).
 >
@@ -331,27 +284,7 @@ vercel link --project cmds-system-files-v2 --yes
 
 #### 전체 흐름 자동화 (system-docs-updater 스킬)
 
-```
-볼트 파일 수정
-  ↓
-"sync system files 배포" 또는 skill 호출
-  ↓
-스킬이 8 destinations 동시 갱신 (5 mothership + 3 satellite):
-  ① 백업 (40. Docs/.../cmds-system-files/*_backup.md) — 6개 공개 + ANTIGRAVITY (private 는 비공개 백업만)
-  ② 공유 (40. Docs/.../cmds-system-files-share/*_share.md) — 6개 sanitized
-  ③ DEV (DEV/files/*.md + rules/ + ZIP 재생성) — 6개 공개 + 8 rules
-  ④ (선택) GitHub git push
-  ⑤ Vercel deploy
-  ⑥ cmds-vault starter-kit frontmatter sync (github johnfkoo951/cmds-vault)
-  ⑦ CMDS_LLM_Wiki dependency check (satellite Core Context 정합성)
-  ⑧ LLM Wiki starter-kit 3-place drift check (default no-op — 보고만)
-  ↓
-vercel deploy --prod --yes  (수동으로 실행 — 사용자가 ① ② ③ 검증 후)
-```
-
-> **반드시 ② 공유 폴더도 갱신**. Skill 의 "Quick Update Command" 가 backup 만 다루고 share 는 별도 섹션이라 *과거에 share 누락 사고 있었음* (2026-04-18 ~ 2026-05-03 share 폴더 stale 상태). 8-way (5 mothership + 3 satellite) fan-out 명시 필요.
-
-자세한 스킬 동작은 `system-docs-updater` 참조.
+"sync system files 배포" 요청 시 `system-docs-updater` 스킬이 위 ① ~ ⑧ fan-out 을 자동화한다. ⑤ Vercel deploy 는 사용자가 ① ② ③ 검증 후 실행, ⑧ 은 default no-op (보고만). **② 공유 폴더 누락 주의** — 과거 share stale 사고 (2026-04-18 ~ 05-03) 는 누락 방지 룰 #1 참조. 자세한 스킬 동작은 `system-docs-updater` 참조.
 
 ### Important Notes:
 - All relative paths in this document (e.g., `00. Inbox/03. AI Agent/`) are relative to the base path above
@@ -376,17 +309,7 @@ This mothership vault has **6 companion vaults** — separate Obsidian vaults wi
 | 👥 **Team Collaboration**  | `GOBI`               | `/Users/yohankoo/Local Obsidian_MBP/GOBI`           | 5인 (구요한·이태극·김진영·강민석·Greg Moon) | 커맨드스페이스 × 고비 팀                      |
 | 📤 **Public Distribution** | `cmds-vault`         | `/Users/yohankoo/Local Obsidian_MBP/cmds-vault`     | 구요한 → 외부                       | CMDS 스타터킷 (외부 사용자 배포)               |
 
-### 멤버 별 vault 매핑
-
-| 멤버 | 참여 vault |
-|------|-----------|
-| **구요한** | 7 vault 모두 |
-| **박준** | CMDS_JoonLab |
-| **이태극** | CMDSPACE_Admin + GOBI (2 vault 동시 참여) |
-| **김진영 / 강민석 / Greg (Greg Moon)** | GOBI |
-| **외부 사용자** | cmds-vault (다운로드) |
-
-→ 박준은 *JoonLab 만*. 이태극은 *2 vault 참여*. 다른 사람의 콘텐츠가 *섞이지 않도록* governance 분리.
+→ 멤버 매핑은 위 표의 멤버 열이 정본: 구요한 = 7 vault 모두 · 박준 = *JoonLab 만* · 이태극 = *Admin + GOBI 2 vault* · 김진영/강민석/Greg = GOBI · 외부 사용자 = cmds-vault. 다른 사람의 콘텐츠가 *섞이지 않도록* governance 분리.
 
 ### Registered Satellites (Karpathy 의미의 satellite — LLM 협업)
 
@@ -540,29 +463,14 @@ The mothership has 8 slash commands aligned with the **CMDS Process** (Connect �
 ### Decision Tree (When to Use Which)
 
 ```
-세션 시작 / 뭐 할지 모름
-  └─→ /status  (한 화면 요약 + 추천 액션)
-
-방대한 inbox에서 시작
-  └─→ /inbox  → AskUserQuestion으로 라우팅
-
-inbox 항목 빠르게 분류·등록
-  └─→ /connect  (low-friction, Theme stub)
-
-여러 노트 합성해서 한 노트로 만들고 싶음 (사용자의 핵심 워크플로)
-  └─→ /merge  (multi-dialog, Literature 산출)
-
-방법론을 데이터/도구에 적용 / 코드·프롬프트 생성
-  └─→ /develop  (artifact-producing)
-
-기존 합성을 외부용 산출물로 (뉴스레터/슬라이드/SNS 등)
-  └─→ /share  (skill 오케스트레이션)
-
-볼트에 질문하기 (자신의 글 + LLM Wiki 동시 검색)
-  └─→ /query  (답변 + 가치 있으면 해당 CMDS 카테고리에 file back)
-
-위생 점검 (모순/orphan/stale)
-  └─→ /lint {scope}  (read-only)
+세션 시작 / 뭐 할지 모름             → /status
+방대한 inbox에서 시작                → /inbox → 라우팅
+inbox 항목 빠르게 분류·등록          → /connect
+여러 노트 합성해서 한 노트로         → /merge  (핵심 워크플로)
+방법론 적용 / 코드·프롬프트 생성     → /develop
+기존 합성 → 외부용 산출물            → /share
+볼트에 질문 (자신의 글 + LLM Wiki)   → /query
+위생 점검 (모순/orphan/stale)        → /lint {scope}
 ```
 
 ### Settled Design Decisions (record of intent)
@@ -603,19 +511,7 @@ This vault has **9 system files** that work together to provide complete guidanc
 
 > BRAIN.md / BRAIN_PROMPT.md 는 *Claude Code · Gemini CLI 등 일반 LLM coding agent 의 컨텍스트로 들어가지 않음*. Gobi 앱이 외부에서 구요한 페르소나로 답할 때만 사용. 다른 system files 와 audience 가 다르다는 점이 핵심.
 
-### When to Use Which File
-
-- **CLAUDE.md (you are here)**: Claude Code 기술 규칙
-- **AGENTS.md**: Codex/Cursor/Windsurf 등 타 AI coding agent
-- **ANTIGRAVITY.md**: Google Gemini / Antigravity IDE
-- **CMDS.md**: 시스템 철학·사용자 컨텍스트
-- **🏛 CMDS Guide**: Properties 표준·템플릿
-- **🏛 CMDS Head Quarter**: 87 서브카테고리 네비게이션
-- **DESIGN.md**: 시각 산출물 (웹·PDF·슬라이드·이미지·영상) 만들 때
-- **BRAIN.md**: Gobi 페르소나 시스템의 brain profile
-- **BRAIN_PROMPT.md**: Gobi agent 의 Rules of Engagement
-
-**Remember**: This file (CLAUDE.md) is **Claude Code specific**. For other AI agents, use **AGENTS.md** (general) or **ANTIGRAVITY.md** (Gemini).
+**Remember**: This file (CLAUDE.md) is **Claude Code specific**. For other AI agents, use **AGENTS.md** (general) or **ANTIGRAVITY.md** (Gemini). 파일별 용도는 위 표가 정본.
 
 ## File Creation Rules
 
@@ -667,17 +563,7 @@ Most common types in the vault:
 
 ### Markdown Files
 - Always use wikilinks `[[]]` for internal references, NOT markdown links
-- Include YAML frontmatter for metadata (see @.claude/rules/frontmatter-standard.md)
-- Standard frontmatter fields:
-	- `type:` - Note type/category (see types above)
-	- `aliases:` - Alternative names (array format)
-	- `author:` - Author information (array format with quoted wikilinks)
-	- `date created:` - Creation timestamp (YYYY-MM-DD format)
-	- `date modified:` - Last modification (YYYY-MM-DD format)
-	- `tags:` - Relevant tags (array format)
-	- `CMDS:` - CMDS category reference (quoted wikilink if used)
-	- `index:` - Index reference (quoted wikilink if used)
-	- `status:` - unread/reading/inProgress/completed/archived
+- Include YAML frontmatter for metadata — 필수 7필드 + 선택 필드 (`CMDS:`/`index:`/`status:`) 정의는 @.claude/rules/frontmatter-standard.md 가 정본
 
 ### Note Templates
 Templates are located in `90. Settings/91. Templates/`
@@ -690,20 +576,8 @@ Key templates include:
 - `Template_80. AI Summary.md` - AI-generated summaries
 - `Template_90. CMDS MOC.md` - Map of Content
 
-### Special Characters in Titles
-The vault uses emoji prefixes systematically:
-- `🏛` - Main index/guide notes (CMDS Guide, CMDS Head Quarter)
-- `📖` - Category collections (100-900 series)
-- `📚` - Subcollections (2nd level)
-- `🏷` - Tag/index pages
-
 ### Mermaid Diagrams
-Full rules: `.claude/rules/mermaid-rules.md`
-
-핵심 3가지:
-- **모든 라벨을 큰따옴표로**: `A["시작"] --> B{"조건?"}`
-- **`[/` 로 시작 금지**: trapezoid 도형 기호로 파싱됨 → `C["/query 스킬"]`로 작성
-- **엣지 라벨도 따옴표**: `B -->|"라벨"| C`
+`.claude/rules/mermaid-rules.md` (@import 됨) 가 정본 — 라벨 큰따옴표, `[/` 시작 금지, 엣지 라벨 따옴표.
 
 ## Key Integration Points
 
@@ -714,7 +588,7 @@ Full rules: `.claude/rules/mermaid-rules.md`
 ### AI Integration
 - ChatGPT custom GPTs linked in CMDS Head Quarter
 - Claude integration via Claude Code directory
-- Agent settings: `90. Settings/94. Agent Settings/claude/` 이 **원본** (Obsidian Sync 대상). `.claude/{agents,commands,rules,skills}` 는 이 원본으로 향하는 **심볼릭 링크**. `.claude/settings.json`, `.claude/sessions/` 등은 머신 로컬 전용 (symlink 안 함). 새 MBP 에서 재설정 방법은 `.claude/rules/directory-structure.md` 참조.
+- Agent settings: `90. Settings/94. Agent Settings/claude/` 원본 → `.claude/{agents,commands,rules,skills}` symlink (§ Claude Settings Sync 참조)
 
 ### Automation
 - n8n workflows for automation
@@ -792,10 +666,11 @@ obsidian dev:console level=error                    # 콘솔 에러 확인
 
 ### Note Creation with Proper Metadata
 ```bash
-cat > "00. Inbox/$(date +%Y-%m-%d)-new-note.md" << 'EOF'
+cat > "00. Inbox/$(date +%Y-%m-%d)-new-note.md" << EOF
 ---
 type: note
 aliases: []
+description: ""
 author:
   - "[[구요한]]"
 date created: $(date +%Y-%m-%d)
