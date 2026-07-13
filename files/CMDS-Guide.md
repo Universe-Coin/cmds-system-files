@@ -7,7 +7,7 @@ description: "Operational standards guide for the CMDS vault. Defines the 7 requ
 author:
   - "[[구요한]]"
 date created: 2025-09-15T23:39
-date modified: 2026-07-10T20:10
+date modified: 2026-07-13T15:10
 tags: [CMDS, system, guideline, NoteClass, operation, 태그는자유로워야지, index, maps, example, service]
 audience: User + AI
 scope: operational-standards
@@ -22,9 +22,10 @@ optional-for:
 token-estimate: 4800
 links: []
 index: "[[🏛 CMDS Head Quarter]]"
-version: "2.8"
+version: "2.9"
 status: completed
 changelog:
+  - "2.9 (2026-07-13): Inbox 폴더 구조 갱신 — 08. Unlisted(미사용) → 08. Transcripts 재구조화 (raw 전사본 착륙 레인 08-1. Plaud / 08-2. STT / 08-3. Manual). 06. Automation 에서 06-3. STT 를 08-2 로 이관. 인박스(대기열) vs 40. Docs/44. Transcripts(아카이브) 2계층 역할 분리."
   - "2.8 (2026-07-02): 전수 감사 픽스 세트 (macro v4.9.3) — (a) tags 노이즈 회귀 재제거 (v2.6 정리분이 재발했던 것 — 태그는자유로워야지·index·maps·example·service) + 리스트 포맷 복원, (b) merge 예시 frontmatter 의 CMDS:/index: 방향 오류 수정 (📖→📚, 📚→🏷 — direction rule 과 일치), (c) Properties Template Examples 5종에 description 필드 추가 + 누락된 date modified 4건 보완, (d) 날짜 형식 명세를 frontmatter-standard 와 통일 (초 단위 제거), (e) 표준 Type 목록 CMDS 중복 등재·프로퍼티 CMDS 이중 정의 제거, (f) index: 프로퍼티에 시스템 파일 예외 명문화, (g) Folder Structure 에 실존 폴더 6개 추가 (01. Articles·53·54·65·66·76), (h) Version History 에 v2.6/v2.7 백필."
   - "2.7 (2026-05-30): v4.9.0 pass — added 🔗 Related System Files section with DESIGN.md (precedence 9) visual-standards cross-link; banner/version synced to 2.7."
   - "2.6 (2026-05-20): Tags noise 정리 — `태그는자유로워야지`, `maps`, `example`, `service`, `index` 제거 (vault 일반 태그 시스템과 의미 충돌). Last Updated 헤더 동기화."
@@ -40,9 +41,9 @@ share_expires: 2026-01-29T11:02:12.926Z
 
 # CMDS Guide
 
-> **🔄 Last Updated: 2026-07-02** | Backup: `40. Docs/47. CMDS Docs/cmds-system-files/CMDS-Guide_backup.md`
+> **🔄 Last Updated: 2026-07-13** | Backup: `40. Docs/47. CMDS Docs/cmds-system-files/CMDS-Guide_backup.md`
 >
-> 📌 **Version 2.8** - Properties 표준화 + 9-file scheme + DESIGN 시각 규약 cross-link
+> 📌 **Version 2.9** - Properties 표준화 + 9-file scheme + Inbox Transcripts 2계층 구조
 
 ## Properties
 ### 필수 Properties (Required)
@@ -288,10 +289,10 @@ mainVaultRelated:
 │   └── 03-8. Antigravity (Studio)/ # Antigravity (Google) — Mac Studio
 ├── 04. Excalidraw/             # 다이어그램
 ├── 05. Canvas/                 # Canvas 노트
-├── 06. Automation/             # 자동화 (06-1. Make.com, 06-2. n8n Lecture, 06-3. STT)
+├── 06. Automation/             # 자동화 (06-1. Make.com, 06-2. n8n Lecture)
 ├── 06. GenAI Chats/            # GenAI 대화 기록
 ├── 07. App Sync/               # 외부 앱 연동 (07-1. Claude, 07-2. Antigravity, 07-3. Bear Notes)
-├── 08. Unlisted/               # 미분류
+├── 08. Transcripts/            # Raw 전사본 착륙 레인 (08-1. Plaud, 08-2. STT, 08-3. Manual) — 처리 후 40. Docs/44. Transcripts 로 아카이브
 └── 09. Legacy/                 # 레거시 컨텐츠
 
 10. CMDS Process/               # CMDS 프로세스 워크플로우
@@ -577,6 +578,7 @@ date modified: 2026-03-30
 - `.obsidian` - macOS, Windows, Android
 - `.obsidian_mobile` - iOS, iPadOS
 ## Version History
+- **v2.9** (2026-07-13): Inbox 08. Unlisted → 08. Transcripts 재구조화 (Plaud/STT/Manual 착륙 레인), 06-3. STT 이관, 인박스 대기열 vs 44. Transcripts 아카이브 2계층 분리
 - **v2.8** (2026-07-02): 전수 감사 픽스 — tags 노이즈 회귀 재제거, merge 예시 CMDS:/index: 방향 오류 수정, 템플릿 예시 5종 description·date modified 보완, 날짜 형식 통일 (초 단위 제거), CMDS 타입/프로퍼티 중복 제거, index: 시스템 파일 예외 명문화, Folder Structure 실존 폴더 6개 추가
 - **v2.7** (2026-05-30): 🔗 Related System Files 섹션 추가 (DESIGN.md precedence 9 cross-link), 배너·버전 동기화
 - **v2.6** (2026-05-20): Tags 노이즈 정리 (`태그는자유로워야지`·`maps`·`example`·`service`·`index` 제거), Last Updated 헤더 동기화

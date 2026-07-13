@@ -17,10 +17,10 @@
 │   └── 03-8. Antigravity (Studio)/
 ├── 04. Excalidraw/             # Visual diagrams
 ├── 05. Canvas/                 # Canvas notes
-├── 06. Automation/             # Automation (Make.com, n8n, STT)
+├── 06. Automation/             # Automation (Make.com, n8n)
 ├── 06. GenAI Chats/            # GenAI conversation logs
 ├── 07. App Sync/               # External apps (Claude, Antigravity, Bear Notes)
-├── 08. Unlisted/               # Unlisted items
+├── 08. Transcripts/            # Raw transcript landing lanes (08-1. Plaud, 08-2. STT, 08-3. Manual) — processed originals archive to 40. Docs/44. Transcripts
 └── 09. Legacy/                 # Legacy content
 
 10. CMDS Process/               # Connect→Merge→Develop→Share

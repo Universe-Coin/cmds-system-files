@@ -7,7 +7,7 @@ description: Central version history for the 6 publicly deployed CMDS system fil
 author:
   - "[[구요한]]"
 date created: 2026-04-01T11:30
-date modified: 2026-07-12
+date modified: 2026-07-13
 tags: [CMDS, system, changelog]
 CMDS: "[[📚 501 Obsidian]]"
 ---
@@ -26,6 +26,36 @@ CMDS: "[[📚 501 Obsidian]]"
 | 🔬 **마이크로 (파일별)** | 각 파일의 evolution | 각 파일 frontmatter `version:` | CLAUDE 3.8, CMDS 2.5, ... |
 
 각 매크로 entry 에는 **그 시점의 9 files version snapshot matrix** 를 포함해 마이크로 ↔ 매크로 매핑이 명시됩니다.
+
+---
+
+## v4.9.5 — 2026-07-13 (Inbox Transcripts 2계층 재구조화)
+
+**트리거**: 사용자 지시 "인박스에 Transcripts 폴더 신설 + 구조 개선" — 인박스(대기열)와 아카이브를 분리하는 2계층 설계 승인.
+
+**왜 v4.9.5 (patch) 인가**: 스키마·정책 변경 없는 폴더 구조 현행화. 미사용 `08. Unlisted` 를 `08. Transcripts` (raw 전사본 착륙 레인 08-1. Plaud / 08-2. STT / 08-3. Manual) 로 재구조화하고, `06. Automation/06-3. STT` 를 08-2 로 이관. 변경 파일은 🏛 CMDS Guide (2.9) + rules/directory-structure.md 2개.
+
+### File Version Snapshot
+
+| File | Version | Δ from v4.9.4 |
+|------|:-------:|:-------------:|
+| CLAUDE.md | 4.5 | — |
+| AGENTS.md | 2.9 | — |
+| ANTIGRAVITY.md | 2.3 | — |
+| CMDS.md | 2.9 | — |
+| 🏛 CMDS Guide.md | **2.9** | ⬆ Inbox 폴더 트리 갱신 — 08. Unlisted → 08. Transcripts (Plaud/STT/Manual 레인), 06. Automation 에서 STT 제거 |
+| 🏛 CMDS Head Quarter.md | 1.7 | — |
+| DESIGN.md | 1.2 | — |
+| BRAIN.md *(internal)* | (Gobi-managed) | — |
+| BRAIN_PROMPT.md *(internal)* | (Gobi-managed) | — |
+
+### Changes
+
+- **🏛 CMDS Guide 2.9**: Folder Structure 트리에서 `08. Unlisted/`(미분류·미사용) → `08. Transcripts/` (raw 전사본 착륙 레인, 처리 후 `40. Docs/44. Transcripts` 아카이브) 갱신. `06. Automation` 주석에서 06-3. STT 제거 (08-2 로 이관).
+- **rules/directory-structure.md**: 같은 트리 변경 반영 (Automation 주석, 08. Transcripts 레인 + 아카이브 포인터).
+- **볼트 실물 변경 (배포 외)**: `08. Unlisted` → `08. Transcripts` 개명 + 3 레인 생성, `.stt.md` 13개 이관, 인박스/아카이브 가이드 노트 2개 신설 (`Transcripts Inbox Guide` · `Transcripts Archive Guide`), `.claude/commands/inbox.md` 폴더 표 갱신.
+- **웹 surface**: index.html·docs/index.html 버전 문자열 v4.9.4 → v4.9.5.
+- **위성**: ⑥ cmds-vault / ⑦ CMDS_LLM_Wiki dep — 시스템 파일 개수·division·focus axis 변경 없음 → no-op 점검. ⑧ starter-kit 3-place drift — report-only 점검.
 
 ---
 
