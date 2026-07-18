@@ -327,11 +327,10 @@ mainVaultRelated:
 
 50. Assets/                     # 미디어 및 자산
 ├── 51. Brand/                  # 브랜드 자산
-├── 51. Prompt/                 # 프롬프트 자산
-├── 51. Prompt and Syntax/      # 프롬프트 및 문법
 ├── 52. Workflow/               # 워크플로우 자산
 ├── 53. Transcription Context/  # 전사(STT) 컨텍스트 자산
 ├── 54. Lecture Assets/         # 강의 재사용 자산
+├── 55. Prompt/                 # 프롬프트 자산 (2026-07-18 재넘버링: 舊 51. Prompt — 51 번호 3중 충돌 해소, stale 사본 '51. Prompt and Syntax' 는 09. Legacy 격리)
 └── 59. Obsidian Web Clipper/   # 웹 클리퍼 템플릿
 
 60. Collections/                # 엔티티 관리 컬렉션
