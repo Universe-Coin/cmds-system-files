@@ -84,7 +84,7 @@ Two Macs are synced via **Obsidian Sync** (official Obsidian cloud server). All 
 
 | Environment | Machine | Base Path |
 |-------------|---------|-----------|
-| Primary | MacBook Pro (16-inch) | `/Users/yohankoo/Local Obsidian_MBP/CMDSPACE_Local_MBP` |
+| Primary | MacBook Pro (14-inch) | `/Users/yohankoo/Local Obsidian_MBP/CMDSPACE_Local_MBP` |
 | Secondary | Mac Studio | `/Users/yohankoo/Obsidian_Local/CMDSPACE_Studio_Local_Org` |
 
 ### AI Agent Output Lanes

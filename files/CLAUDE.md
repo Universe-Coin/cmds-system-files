@@ -142,7 +142,7 @@ This vault is accessed from two different Mac environments:
 ### Primary Environment (MacBook Pro) ✅
 **Base Path**: `/Users/yohankoo/Local Obsidian_MBP/CMDSPACE_Local_MBP`
 
-**System**: MacBook Pro (16-inch)
+**System**: MacBook Pro (14-inch)
 **Status**: Primary (Most Frequently Used)
 **Usage**: Main development and knowledge management workstation
 
