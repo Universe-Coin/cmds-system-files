@@ -7,7 +7,7 @@ description: "Operational standards guide for the CMDS vault. Defines the 7 requ
 author:
   - "[[구요한]]"
 date created: 2025-09-15T23:39
-date modified: 2026-07-21T18:08
+date modified: 2026-07-30T19:26
 tags: [CMDS, system, guideline, NoteClass, operation, 태그는자유로워야지, index, maps, example, service]
 audience: User + AI
 scope: operational-standards
