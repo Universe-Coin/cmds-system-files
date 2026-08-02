@@ -28,7 +28,7 @@
 30. Permanent Notes/            # Evergreen content (정제된 개인 지식)
 40. Docs/                       # Technical documentation (업무 문서/기록)
 50. Assets/                     # Reusable resources (재사용 자원)
-60. Collections/                # Entity management (People, Meetings, Preferences)
+60. Collections/                # Entity management (People, Meetings, Spirituality, Preferences)
 70. Outputs/                    # Final deliverables (최종 산출물)
 80. References/                 # Reference materials (참조 자료)
 90. Settings/                   # System settings and templates
@@ -41,6 +41,8 @@
 ```
 
 > **문서화 대상 외 루트 폴더**: `_Settings_/`, `프로젝트/`, `context/`, `copilot-custom-prompts/` (Obsidian Copilot 플러그인 자동 생성), `_starter-kit/` 계열은 canonical CMDS 구조 밖의 시스템·legacy 폴더 — 위 트리에 넣지 않고 여기서만 명시한다.
+
+> **설교 노트 단일 홈 (2026-08-02 확정)**: 모든 `type: sermon` 노트의 물리적 홈은 `60. Collections/64. Spirituality/` **하나**다. 과거 실험 폴더 `20. Literature Notes/23. Sermon/` 은 stale 중복 2건만 남긴 채 방치되어 있어 2026-08-02 폐기(중복 삭제 + 폴더 제거)했다 — **재생성 금지**. "설교문을 문헌으로 분석"하는 경우도 물리 폴더는 64, 분류는 frontmatter `CMDS:` 메타데이터로 한다 (CMDS categorization is metadata, not folders). 녹음 전사 원문은 `00. Inbox/08. Transcripts/` 레인 담당.
 
 ## Symbolic Link: .claude/ ↔ 94. Agent Settings/
 

@@ -34,6 +34,9 @@ tags: []        # Relevant tags (array format)
 	- ✅ Safe: `description: "Draft curriculum ... Operations: 3 main + 6 assistants ..."`
 	- ❌ Breaks Obsidian Properties panel: `description: Draft curriculum ... Operations: 3 main ...` (plain scalar with embedded `: `)
 	- **Rule of thumb**: if the value contains any `:`, `#`, `[`, `]`, `{`, `}`, `,`, `&`, `*`, `?`, `|`, `>`, `!`, `%`, `@`, or spans beyond a short phrase, quote it. For multi-line text use `>-` (folded) or `|-` (literal) block scalars instead.
+8. **No numeric tags**: Obsidian tags must contain at least one non-numeric character. Numeric-only values in `tags:` (e.g. `2`, `15`, `22`) break the Properties panel rendering (yellow warning). Never harvest body references like `#2` / `#22` (pipeline numbers, issue numbers) into `tags:` — they are not tags. In the **body**, when writing a `#숫자` reference (e.g. pipeline item number), wrap it in backticks — `` `#22` `` — so Obsidian does not parse it as a tag attempt.
+	- ✅ `tags: [us-trip, starlink]` + body: ``파이프라인 `#22` 와 연결``
+	- ❌ `tags: [us-trip, 2, 22, 15]` / body: `파이프라인 #22와 연결` (tag 오인 수집 → Properties 깨짐)
 
 ## Optional Properties
 

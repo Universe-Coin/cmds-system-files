@@ -7,7 +7,7 @@ description: "Central navigation hub for the CMDS vault. Provides links to 87 su
 author:
   - "[[구요한]]"
 date created: 2025-10-23T01:59
-date modified: 2026-07-10T16:46
+date modified: 2026-07-30T19:39
 tags:
   - CMDS
   - system
@@ -130,7 +130,7 @@ References:: [[🏛 000 YHN Home]]
 - #### [[📖 900 Divisions]]
 	- [[📚 901 Knowledge Management & Research Division]] · 케플러 요한 · 온유
 	- [[📚 902 Writing & Publishing Division]] · 괴테 요한 · 사랑
-	- [[📚 903 Teaching & Curriculum Division]] · 듀이 요한 · 자비
+	- [[📚 903 clTeaching & Curriculum Division]] · 듀이 요한 · 자비
 	- [[📚 904 Creative Arts & Media Division]] · 바흐 요한 · 희락
 	- [[📚 905 Research Methods & Analytics Division]] · 노이만 요한 · 절제
 	- [[📚 906 Partnerships & Networks Division]] · 세례요한 · 오래 참음
