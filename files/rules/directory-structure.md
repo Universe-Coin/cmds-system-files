@@ -27,6 +27,8 @@
 20. Literature Notes/           # Reading notes (외부 지식 내재화)
 30. Permanent Notes/            # Evergreen content (정제된 개인 지식)
 40. Docs/                       # Technical documentation (업무 문서/기록)
+├── 42. AI Generated/           # 에이전트 산출 1차 축적층 (Agent Worklog — file-creation-rules.md 참조)
+│   └── {Modules,Research,Troubleshooting,Specs,Reviews}/  # cmux-voice worklog가 생성·worklog-daily 잡이 보충
 50. Assets/                     # Reusable resources (재사용 자원)
 60. Collections/                # Entity management (People, Meetings, Spirituality, Preferences)
 70. Outputs/                    # Final deliverables (최종 산출물)
