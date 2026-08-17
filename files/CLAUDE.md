@@ -7,7 +7,7 @@ description: "Claude Code specific technical implementation guide. Defines file 
 author:
   - "[[구요한]]"
 date created: 2025-09-27T17:53
-date modified: 2026-07-12
+date modified: 2026-08-17
 tags:
   - CMDS
   - system
@@ -26,9 +26,10 @@ optional-for:
 token-estimate: 12500
 CMDS: "[[📚 501 Obsidian]]"
 index: "[[🏛 CMDS Head Quarter]]"
-version: "4.5"
+version: "4.6"
 status: completed
 changelog:
+  - "4.6 (2026-08-17): Periodic Agent Notes 체제 신설 (macro v4.10.0) — /daily·/weekly 에이전트 작성 노트 섹션 추가 (04:00 하루 경계, draft 21:23 + finalize 04:53 OmniControl 잡, dailyStatus 멱등성, 사람 영역 불변, 스냅샷 표 = /weekly 원천 데이터). 에이전트 작성 노트의 model/effort frontmatter 컨벤션 (LLM Wiki 페르소나 컨벤션 이식) 참조 추가."
   - "4.5 (2026-07-12): 경량화 패스 (macro v4.9.4) — 중복 제거 diet (848→722줄, 53.7→48.2KB). (a) 동기화 8-destination 목록 3회 반복 → 1회 (ASCII 다이어그램·자동화 플로우 블록 제거, 인트로 문단+bash 정본 유지), (b) Claude Settings Sync 를 directory-structure.md 정본 포인터로 압축, (c) When to Use Which File 리스트 제거 (9-file 표와 1:1 중복), (d) 멤버 별 vault 매핑 표 → 한 줄 요약, (e) Decision Tree 를 AGENTS.md 압축형으로 통일, (f) frontmatter 필드 리스트·Mermaid 핵심 3가지·Special Characters 섹션 제거 (@import rules 와 중복), (g) AI Integration symlink 서술 압축. 별도 픽스: Vault Commands heredoc 에 description 필드 추가 + 'EOF' quote 제거 ($(date) 미확장 버그). token-estimate 14000→12500 재실측."
   - "4.4 (2026-07-02): 전수 감사 픽스 세트 (macro v4.9.3, Fable 5 멀티에이전트 audit) — (a) tags 회귀 5번째 재수정 (stray 1, 2 inline 재발분 제거·리스트 복원), (b) 동기화 다이어그램 소스 목록에 DESIGN.md 누락 보완, (c) Multi-Vault Architecture bare cross-vault wikilink 2곳 → obsidian URL, (d) /query 크로스-볼트 서술 정정 (mothership /query 는 qmd 기반으로 cross-vault 동작), (e) '91 카테고리' → 실측 87 정정, (f) /inbox 서브폴더 하드카운트 제거, (g) -v2 설명의 v4.2 하드코딩 제거, (h) Guide/HQ @import 표기 2건 wikilink 로 정정 (공백 경로는 import 불가), (i) token-estimate 5800→14000 실측화, (j) /share 스킬 예시에 cmds-sns-promo 반영. 별도 기록: 2026-06-29 편집분은 Pre-Flight Checklist 의 Table blank-line 항목 추가 (blank-line-rules.md 2026-06-27 개정 반영)."
   - "4.3 (2026-06-16): tags 회귀 재수정 (macro v4.9.1) — stray `1, 2` 태그가 v4.9.0 배포 후 inline 포맷(`[CMDS, system, 1, 2]`)으로 재발(2026-06-05). 리스트 포맷 복원. 3.8/4.0/4.1 에 이은 4번째 재발이라 근본 원인(Obsidian inline-tag 변환 추정) 추적 필요. 콘텐츠 변경 없음."
@@ -48,7 +49,7 @@ changelog:
   - "2.1 (2026-03-30): frontmatter 표준 추가, 백업 경로 이동"
   - "2.0 (2026-03-15): 전면 리뷰, 통계 갱신, GitHub/Web 링크"
 ---
-> **🔄 Last Updated: 2026-07-18** | Backup: `40. Docs/47. CMDS Docs/cmds-system-files/CLAUDE_backup.md` | GitHub: [cmds-system-files](https://github.com/johnfkoo951/cmds-system-files) (코드 히스토리, 자동 배포 아님) | Web: [system.cmdspace.work](https://system.cmdspace.work) (Vercel `cmds-system-files-v2`)
+> **🔄 Last Updated: 2026-08-17** | Backup: `40. Docs/47. CMDS Docs/cmds-system-files/CLAUDE_backup.md` | GitHub: [cmds-system-files](https://github.com/johnfkoo951/cmds-system-files) (코드 히스토리, 자동 배포 아님) | Web: [system.cmdspace.work](https://system.cmdspace.work) (Vercel `cmds-system-files-v2`)
 
 # CLAUDE.md
 
@@ -490,6 +491,22 @@ inbox 항목 빠르게 분류·등록          → /connect
 **Weekly**: `/lint inbox` → 정리 후 `/merge {topic}` → `/share` (필요 시)
 **프로젝트 작업**: `/query {topic}` → `/merge {topic}` → `/develop` 또는 `/share`
 **시스템 점검 (월 1회)**: `/lint all` → `/refresh-context` (TBD)
+
+### Periodic Agent Notes — /daily · /weekly (2026-08-17+)
+
+CMDS Process 8종과 별개로, 시간 축 기록(데일리·위클리)은 에이전트가 작성한다. 사람 입력 영역은 데일리의 "사람 한 줄"·To Do·Log, 위클리의 "사람 결정 1줄" 뿐.
+
+| Command | 주기 (OmniControl 잡) | 산출 |
+|---------|----------------------|------|
+| `/daily` | 매일 draft 21:23 (`daily-note`) + 어제 확정 04:53 (`daily-note-final`) | `00. Inbox/01. Daily Notes/YYYY-MM-DD.md` |
+| `/weekly` | 매주 일 21:41 (`weekly-review`) | `00. Inbox/01. Daily Notes/01-2. Weekly Notes/YYYY-Www.md` |
+
+핵심 규칙:
+- **하루의 경계는 04:00 (KST)** — 데일리 노트 D 는 D 04:00 → D+1 04:00 창을 다룬다. 자정 이후 새벽 작업은 전날 노트에 편입(finalize 모드가 처리). 파일명은 달력 날짜 유지.
+- **멱등성**: frontmatter `dailyStatus: pending → filled → final` 로 상태 관리. 노트가 이미 있으면 섹션 단위 패치만 — **템플릿 재삽입 절대 금지** (과거 이중 삽입 사고 7회). 사람 영역은 불변.
+- **데일리 "스냅샷" 표** (md 카운트 4종, 오늘 생성 사람/기계 분리, 백업 상태, 타임존) 는 /weekly 가 diff 하는 원천 데이터.
+- **에이전트 작성 노트는 `model:` + `effort:` frontmatter** 로 작성 모델을 기록 (`.claude/rules/frontmatter-standard.md` Optional Properties 참조).
+- 정본: 수집 파이프라인·합성 규칙은 `.claude/commands/daily.md`, 노트 구조는 `90. Settings/91. Templates/Template_01. Daily Note.md` (본문의 `%%agent: ...%%` 지시 주석이 계약 — wikilink-rules §5).
 
 ---
 

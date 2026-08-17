@@ -29,6 +29,35 @@ CMDS: "[[📚 501 Obsidian]]"
 
 ---
 
+## v4.10.0 — 2026-08-17 (Periodic Agent Notes — 데일리 노트 에이전트 체제)
+
+**트리거**: 사용자 지시 "이제는 에이전트가 데일리 노트 자동으로 쓰게 할거야" — tp(Templater) 함수 중심 데일리 템플릿을 에이전트 작성 체제로 전환하고 규칙을 시스템 파일에 성문화.
+
+**왜 v4.10.0 (minor) 인가**: 새 운영 체제(Periodic Agent Notes) 도입 — CLAUDE/AGENTS/ANTIGRAVITY 에 신규 섹션, rules/frontmatter-standard.md 에 AI 작성자 표기 컨벤션 추가.
+
+### File Version Snapshot
+
+| File | Version | Δ from v4.9.5 |
+|------|:-------:|:------------------:|
+| CLAUDE.md | 4.6 | ⬆ 4.5 → 4.6 |
+| AGENTS.md | 2.10 | ⬆ 2.9 → 2.10 |
+| ANTIGRAVITY.md *(private)* | 2.4 | ⬆ 2.3 → 2.4 |
+| CMDS.md | 2.9 | — |
+| 🏛 CMDS Guide.md | 2.9 | — (frontmatter tags 위생만) |
+| 🏛 CMDS Head Quarter.md | — | — |
+| DESIGN.md | 1.2 | — |
+| BRAIN.md *(internal)* | (Gobi-managed) | — |
+| BRAIN_PROMPT.md *(internal)* | (Gobi-managed) | — |
+
+### Changes
+
+- **Periodic Agent Notes 체제 신설** (CLAUDE 4.6 / AGENTS 2.10 / ANTIGRAVITY 2.4): `/daily` (매일 draft 21:23 + 어제 확정 04:53, OmniControl `daily-note`·`daily-note-final` 잡) 와 `/weekly` (일 21:41) 를 에이전트 작성 시간 축 기록으로 문서화. **하루의 경계 04:00 KST** — 자정 이후 새벽 작업은 전날 노트에 편입 (finalize 모드). 멱등성 `dailyStatus: pending → filled → final`, 템플릿 재삽입 금지 (과거 이중 삽입 사고 7회), 사람 영역(사람 한 줄·To Do·Log) 불변. 데일리 "스냅샷" 표 (md 카운트, 사람/기계 생성 분리, 백업 상태, 타임존) 가 /weekly 의 원천 데이터.
+- **rules/frontmatter-standard.md**: Optional Properties 에 `model:` / `effort:` AI 작성 노트 표기 컨벤션 추가 (LLM Wiki 페르소나 컨벤션 이식) + 데일리 전용 `timezone:` / `dailyStatus:` 명시.
+- 볼트 내부 자산 (배포 대상 아님): `Template_01. Daily Note.md` 에이전트 체제 재설계 (tp 최종판은 `92. Templates (archived)/` 에 아카이브), `.claude/commands/daily.md` 신설.
+- 위생: 🏛 CMDS Guide frontmatter inline tags 회귀 복원 (6번째 재발 — 노이즈 8종 제거, hyphen 리스트).
+
+---
+
 ## v4.9.5 — 2026-07-13 (Inbox Transcripts 2계층 재구조화)
 
 **트리거**: 사용자 지시 "인박스에 Transcripts 폴더 신설 + 구조 개선" — 인박스(대기열)와 아카이브를 분리하는 2계층 설계 승인.

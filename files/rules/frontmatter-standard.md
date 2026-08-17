@@ -43,6 +43,7 @@ tags: []        # Relevant tags (array format)
 - `CMDS:` — CMDS category reference (quoted wikilink)
 - `index:` — Index reference (quoted wikilink)
 - `status:` — One of 5 standard values above
+- `model:` / `effort:` — **AI 작성 노트 표기** (2026-08-17 채택, LLM Wiki 페르소나 컨벤션 이식): 에이전트가 작성·대필한 노트는 정확한 모델 ID 와 reasoning effort 를 기록한다 — `model: "claude-fable-5[1m]"` · `effort: "xhigh"`. `author:` 는 `"[[구요한]]"` 유지 (볼트 소유자), 모델 필드가 AI 작성자 기록. 데일리 노트는 추가로 `timezone:` (KST) 과 `dailyStatus:` (pending → filled → final) 를 사용 (`.claude/commands/daily.md` 정본).
 
 ### `CMDS:` vs `index:` — Direction Rule ⚠️
 
