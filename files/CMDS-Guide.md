@@ -7,10 +7,12 @@ description: "Operational standards guide for the CMDS vault. Defines the 7 requ
 author:
   - "[[구요한]]"
 date created: 2025-09-15T23:39
-date modified: 2026-07-30T19:26
+date modified: 2026-08-22T21:20
 tags:
   - CMDS
   - system
+  - NoteClass
+  - operation
 audience: User + AI
 scope: operational-standards
 precedence: 5
@@ -24,9 +26,10 @@ optional-for:
 token-estimate: 4800
 links: []
 index: "[[🏛 CMDS Head Quarter]]"
-version: "2.9"
+version: "2.10"
 status: completed
 changelog:
+  - "2.10 (2026-08-22): 데일리·위클리 로그 이관 반영 — 00. Inbox/01. Daily Notes (01-1. Planners·01-2. Weekly Notes 포함) 폐지, 10. CMDS Process/15. Periodic/ (Daily/·Weekly/) 신설. Folder Structure 트리 갱신 + Graph View 필터 예시 경로 교체."
   - "2.9 (2026-07-13): Inbox 폴더 구조 갱신 — 08. Unlisted(미사용) → 08. Transcripts 재구조화 (raw 전사본 착륙 레인 08-1. Plaud / 08-2. STT / 08-3. Manual). 06. Automation 에서 06-3. STT 를 08-2 로 이관. 인박스(대기열) vs 40. Docs/44. Transcripts(아카이브) 2계층 역할 분리."
   - "2.8 (2026-07-02): 전수 감사 픽스 세트 (macro v4.9.3) — (a) tags 노이즈 회귀 재제거 (v2.6 정리분이 재발했던 것 — 태그는자유로워야지·index·maps·example·service) + 리스트 포맷 복원, (b) merge 예시 frontmatter 의 CMDS:/index: 방향 오류 수정 (📖→📚, 📚→🏷 — direction rule 과 일치), (c) Properties Template Examples 5종에 description 필드 추가 + 누락된 date modified 4건 보완, (d) 날짜 형식 명세를 frontmatter-standard 와 통일 (초 단위 제거), (e) 표준 Type 목록 CMDS 중복 등재·프로퍼티 CMDS 이중 정의 제거, (f) index: 프로퍼티에 시스템 파일 예외 명문화, (g) Folder Structure 에 실존 폴더 6개 추가 (01. Articles·53·54·65·66·76), (h) Version History 에 v2.6/v2.7 백필."
   - "2.7 (2026-05-30): v4.9.0 pass — added 🔗 Related System Files section with DESIGN.md (precedence 9) visual-standards cross-link; banner/version synced to 2.7."
@@ -43,9 +46,9 @@ share_expires: 2026-01-29T11:02:12.926Z
 
 # CMDS Guide
 
-> **🔄 Last Updated: 2026-07-13** | Backup: `40. Docs/47. CMDS Docs/cmds-system-files/CMDS-Guide_backup.md`
+> **🔄 Last Updated: 2026-08-22** | Backup: `40. Docs/47. CMDS Docs/cmds-system-files/CMDS-Guide_backup.md`
 >
-> 📌 **Version 2.9** - Properties 표준화 + 9-file scheme + Inbox Transcripts 2계층 구조
+> 📌 **Version 2.10** - Properties 표준화 + 9-file scheme + 15. Periodic 시계열 로그 이관
 
 ## Properties
 ### 필수 Properties (Required)
@@ -278,7 +281,6 @@ mainVaultRelated:
 ```
 00. Inbox/                      # 임시 저장 및 처리 공간
 ├── 01. Articles/               # 아티클 수집 (신설)
-├── 01. Daily Notes/            # 데일리 노트 (01-1. Planners, 01-2. Weekly Notes)
 ├── 02. Clippings/              # 웹 클리핑 (02-1. Literature Notes)
 ├── 03. AI Agent/               # ⭐ AI 코드 작업 전용 (PRIMARY)
 │   ├── 03-1. Claude Code (MBP)/    # Claude Code — MacBook Pro
@@ -301,7 +303,8 @@ mainVaultRelated:
 ├── 11. Connect/                # 배우고있는것들 #capture
 ├── 12. Merge/                  # 내주제와연결 #Areas #organize
 ├── 13. Develop/                # #distill
-└── 14. Share/                  # 완성된산출물 #express
+├── 14. Share/                  # 완성된산출물 #express
+└── 15. Periodic/               # 시계열 로그 — Daily/ (YYYY-MM-DD.md) + Weekly/ (YYYY-Www.md), /daily·/weekly 에이전트 작성 (2026-08-22 Inbox에서 이관)
 
 20. Literature Notes/           # 문헌 노트 및 리뷰
 ├── 21. Lit Notes (Zotero)/     # Zotero 연동 문헌
@@ -610,7 +613,7 @@ date modified: 2026-03-30
 - [[Obsidian Graph View를 활용하는 법.obsidain]]
 #### Filters 예시
 - `-tag:Waypoint`
-- `-path:"01. Daily Notes"`
+- `-path:"15. Periodic"`
 - `-path:"study" -path:"reading"`
 - `-file:"00. Inbox" -tag:waypoint`
 - `["type":curriculum]`

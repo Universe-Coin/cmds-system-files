@@ -7,7 +7,7 @@ description: "Central navigation hub for the CMDS vault. Provides links to 87 su
 author:
   - "[[구요한]]"
 date created: 2025-10-23T01:59
-date modified: 2026-07-30T19:39
+date modified: 2026-08-19T15:55
 tags:
   - CMDS
   - system

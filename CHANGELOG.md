@@ -29,6 +29,34 @@ CMDS: "[[📚 501 Obsidian]]"
 
 ---
 
+## v4.10.1 — 2026-08-22 (Periodic 로그 이관 — Inbox → 10. CMDS Process/15. Periodic)
+
+**트리거**: 사용자 지시 "daily·weekly는 저널이 아니라 로그 기록 — 적정 폴더로 이동" — 4년치 데일리 308개 + 위클리 4개를 트리아지 구역(Inbox)에서 시계열 로그 홈으로 이관.
+
+### File Version Snapshot
+
+| File | Version | Δ from v4.10.0 |
+|------|:-------:|:------------------:|
+| CLAUDE.md | 4.7 | ⬆ 4.6 → 4.7 |
+| AGENTS.md | 2.10 | — |
+| ANTIGRAVITY.md | 2.4 | — |
+| CMDS.md | 2.9 | — |
+| 🏛 CMDS Guide.md | 2.10 | ⬆ 2.9 → 2.10 |
+| 🏛 CMDS Head Quarter.md | 1.7 | — |
+| DESIGN.md | 1.2 | — |
+| BRAIN.md *(internal)* | (Gobi-managed) | — |
+| BRAIN_PROMPT.md *(internal)* | (Gobi-managed) | — |
+
+### Changes
+
+- **폴더 이관**: `00. Inbox/01. Daily Notes/` (01-1. Planners 빈 폴더, 01-2. Weekly Notes 포함) 폐지 → `10. CMDS Process/15. Periodic/` 신설 (`Daily/` 데일리 로그 2022~, `Weekly/` 위클리 회고). 근거: 데일리·위클리는 트리아지 대상이 아닌 영구 시계열 로그로 Inbox 성격과 모순, qmd 인덱스·/inbox·/status·/lint 의 Inbox 스캔 노이즈 제거.
+- **CLAUDE.md 4.7**: /daily·/weekly 산출 경로 표 갱신.
+- **🏛 CMDS Guide.md 2.10**: Folder Structure 트리 갱신 (Inbox 행 제거 + 15. Periodic 추가), Graph View 필터 예시 경로 교체, tags inline 회귀 6번째 재수정 (noise 5종 복귀분 제거 + 리스트 포맷 복원).
+- **rules/directory-structure.md**: Inbox 트리에서 01. Daily Notes 제거, 10. CMDS Process 하위에 15. Periodic 추가.
+- **연동 갱신 (볼트 내부, 배포 대상 외)**: 커맨드 5종(daily/weekly/status/lint/inbox) 경로 계약, Obsidian daily-notes·periodic-notes 플러그인 설정 (잘려 있던 weekly 폴더 `00. Inbox/01. Da` 복구 포함), 데일리 템플릿·노트 252건의 base/dataview 폴더 필터 일괄 치환.
+
+---
+
 ## v4.10.0 — 2026-08-17 (Periodic Agent Notes — 데일리 노트 에이전트 체제)
 
 **트리거**: 사용자 지시 "이제는 에이전트가 데일리 노트 자동으로 쓰게 할거야" — tp(Templater) 함수 중심 데일리 템플릿을 에이전트 작성 체제로 전환하고 규칙을 시스템 파일에 성문화.

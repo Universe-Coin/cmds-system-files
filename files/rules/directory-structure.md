@@ -4,7 +4,6 @@
 00. Inbox/                      # Temporary storage and processing
 ├── _Gobi_Captures/             # Gobi capture inbox
 ├── 01. Articles/               # Article collection
-├── 01. Daily Notes/            # Daily journal (01-1. Planners, 01-2. Weekly Notes)
 ├── 02. Clippings/              # Web clippings (02-1. Literature Notes)
 ├── 03. AI Agent/               # Code outputs (PRIMARY)
 │   ├── 03-1. Claude Code (MBP)/
@@ -24,6 +23,9 @@
 └── 09. Legacy/                 # Legacy content
 
 10. CMDS Process/               # Connect→Merge→Develop→Share
+├── 15. Periodic/               # 시계열 로그 (에이전트 작성 — /daily·/weekly 산출, 2026-08-22 Inbox에서 이관)
+│   ├── Daily/                  # YYYY-MM-DD.md 데일리 로그 (2022~)
+│   └── Weekly/                 # YYYY-Www.md 위클리 회고
 20. Literature Notes/           # Reading notes (외부 지식 내재화)
 30. Permanent Notes/            # Evergreen content (정제된 개인 지식)
 40. Docs/                       # Technical documentation (업무 문서/기록)
