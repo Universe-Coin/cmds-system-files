@@ -7,10 +7,8 @@ description: "Claude Code specific technical implementation guide. Defines file 
 author:
   - "[[구요한]]"
 date created: 2025-09-27T17:53
-date modified: 2026-08-22
-tags:
-  - CMDS
-  - system
+date modified: 2026-08-24T12:00
+tags: [CMDS, system, 1, 2]
 audience: Claude Code
 scope: technical-implementation
 precedence: 1
@@ -50,7 +48,7 @@ changelog:
   - "2.1 (2026-03-30): frontmatter 표준 추가, 백업 경로 이동"
   - "2.0 (2026-03-15): 전면 리뷰, 통계 갱신, GitHub/Web 링크"
 ---
-> **🔄 Last Updated: 2026-08-17** | Backup: `40. Docs/47. CMDS Docs/cmds-system-files/CLAUDE_backup.md` | GitHub: [cmds-system-files](https://github.com/johnfkoo951/cmds-system-files) (코드 히스토리, 자동 배포 아님) | Web: [system.cmdspace.work](https://system.cmdspace.work) (Vercel `cmds-system-files-v2`)
+> **🔄 Last Updated: 2026-08-25** | Backup: `40. Docs/47. CMDS Docs/cmds-system-files/CLAUDE_backup.md` | GitHub: [cmds-system-files](https://github.com/johnfkoo951/cmds-system-files) (코드 히스토리, 자동 배포 아님) | Web: [system.cmdspace.work](https://system.cmdspace.work) (Vercel `cmds-system-files-v2`)
 
 # CLAUDE.md
 
@@ -372,6 +370,21 @@ Companion 노트는 `source-vault: CMDSPACE_Local_MBP` + obsidian:// URL 사용 
 - 단순 카테고리 분리 (mothership 의 9 categories 로 충분)
 - 임시 프로젝트 (00. Inbox 또는 mothership 의 project 폴더)
 - 혼자 쓰는 새 도메인 (mothership 의 새 subcategory 로 처리)
+
+### 이론·프레임워크(학술 지식) 배치 — 2층 규칙 (2026-08-25 확정)
+
+트리의 "학습·연구·정리 (LLM compile) → 🛰 CMDS_LLM_Wiki" 는 *LLM 이 컴파일하는 레퍼런스* 에 한정된다. 학자들의 theory / framework / model 을 다룰 때의 판단 기준은 **주제가 아니라 주저자와 이해의 깊이** (Force 1 주저자 분리의 적용):
+
+| 층 | 볼트 | 성격 | 홈 |
+|----|------|------|-----|
+| **내재화 층** | 🌍 mothership | 직접 공부하며 자기 언어로 쓰는 이론 노트 — 본인 해석, 강의·컨설팅 연결, 비판 | 📖 200 Literature (📚 201 Concepts / 202 Frameworks / 203 Models / 204 Theories · 해석은 📚 220 Personal Insights). 물리 폴더 `30. Permanent Notes/`, 분류는 `CMDS:` frontmatter |
+| **레퍼런스 층** | 🛰 CMDS_LLM_Wiki | LLM 이 컴파일한 넓은 커버리지 — 논문 원문 ingest (Raw Sources), 이론 간 cross-reference, "찾아보는" 지식 | 10. Raw Sources → 20. Wiki |
+
+- 워크플로: 내재화 층은 `/connect`(용어·관심 stub) → `/merge`(N 소스 → 1 Literature 노트). 레퍼런스 층은 satellite 의 `/ingest`.
+- 두 층은 복사본이 아니라 역할 분담 — mothership 노트는 `→ LLM Wiki: {page}` 텍스트 참조로 위키를 가리키고, 위키 페이지는 `mainVaultRelated:` 로 역참조.
+- 예시 패턴: "학습 이론 30개 훑어 정리" = 위키 컴파일 → 그중 강의 척추가 되는 이론만 mothership 에서 본인 노트로 재작성.
+
+→ 위키 측 정본: [Multi-Vault Architecture](obsidian://open?vault=CMDS_LLM_Wiki&file=20.%20Wiki%2F23.%20Guides%2FMulti-Vault%20Architecture) § 3 Type B "이론·프레임워크 배치" · [Wiki Vault as Learning Outpost](obsidian://open?vault=CMDS_LLM_Wiki&file=20.%20Wiki%2F21.%20Concepts%2FWiki%20Vault%20as%20Learning%20Outpost)
 
 ### Canonical Guide References (LLM Wiki 측 가이드)
 
