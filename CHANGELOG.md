@@ -29,6 +29,30 @@ CMDS: "[[📚 501 Obsidian]]"
 
 ---
 
+## v4.10.2 — 2026-08-27 (Cross-Vault 상호참조 표준 — advanced-uri + 방향별 필드)
+
+### File Version Snapshot
+
+| File | Version | Δ from v4.10.1 |
+|------|:-------:|:------------------:|
+| CLAUDE.md | 4.8 | ⬆ 4.7 → 4.8 |
+| AGENTS.md | 2.11 | ⬆ 2.10 → 2.11 |
+| ANTIGRAVITY.md | 2.4 | — |
+| CMDS.md | 2.9 | — |
+| 🏛 CMDS Guide.md | 2.10 | — |
+| 🏛 CMDS Head Quarter.md | 1.7 | — |
+| DESIGN.md | 1.2 | — |
+| BRAIN.md *(internal)* | (Gobi-managed) | — |
+| BRAIN_PROMPT.md *(internal)* | (Gobi-managed) | — |
+
+### Changes
+
+- **Cross-vault 상호참조 표준 신설** (`wikilink-rules.md` §6 정본): 볼트 간 링크는 `obsidian://advanced-uri` 마크다운 링크가 표준. 방향별 frontmatter 필드 — 마더십 노트 → 위키 페이지는 `wikiVaultRelated:`, 위키 페이지 → 마더십 노트는 `mainVaultRelated:` (기존 필드 존치, 형식만 갱신).
+- **폴백 규칙**: 대상 볼트에 `obsidian-advanced-uri` 플러그인이 없으면 기본형 `obsidian://open?vault=...&file={path without .md}` 사용.
+- **Anti-pattern 성문화**: 액션명 `adv-uri` 오타, `obsidian: //` 콜론 뒤 공백, 미인코딩 filepath, 폴백형에 `.md` 부착 — 전부 조용히 죽는 링크의 원인.
+- `frontmatter-standard.md` Optional Properties 에 `wikiVaultRelated`/`mainVaultRelated` 정의 추가. CLAUDE.md Cross-Vault Reference Convention·인용 표기·v2 필드 목록, AGENTS.md v2 필드 목록 갱신. `/query`·`/merge`·`/lint` 커맨드 스펙 및 위성 `CMDS_LLM_Wiki` CLAUDE/AGENTS 의 `mainVaultRelated` 형식 동기 갱신.
+- Hygiene: tags inline 회귀 복원 (CLAUDE/CMDS/Guide 3파일, 6번째 재발).
+
 ## v4.10.1 — 2026-08-22 (Periodic 로그 이관 — Inbox → 10. CMDS Process/15. Periodic)
 
 **트리거**: 사용자 지시 "daily·weekly는 저널이 아니라 로그 기록 — 적정 폴더로 이동" — 4년치 데일리 308개 + 위클리 4개를 트리아지 구역(Inbox)에서 시계열 로그 홈으로 이관.

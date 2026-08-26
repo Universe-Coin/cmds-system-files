@@ -7,7 +7,7 @@ description: "Technical guide for non-Claude AI coding agents (Codex, Cursor, Wi
 author:
   - "[[구요한]]"
 date created: 2026-01-02T16:30
-date modified: 2026-08-17
+date modified: 2026-08-27T06:30
 tags:
   - CMDS
   - system
@@ -25,9 +25,10 @@ optional-for:
 token-estimate: 8500
 CMDS: "[[📚 501 Obsidian]]"
 index: "[[🏛 CMDS Head Quarter]]"
-version: "2.10"
+version: "2.11"
 status: completed
 changelog:
+  - "2.11 (2026-08-27): Cross-vault 상호참조 표준 반영 (macro v4.10.2) — v2 frontmatter 필드 목록에 wikiVaultRelated 추가 (advanced-uri 형식, 역방향은 mainVaultRelated). 정본은 wikilink-rules.md §6."
   - "2.10 (2026-08-17): Periodic agent notes 섹션 신설 (macro v4.10.0) — /daily·/weekly 는 Claude Code 스케줄 전용임을 명시, 타 에이전트 규칙 3종 (재생성 금지·사람 영역 불변+dailyStatus 확인·model/effort frontmatter 기록) 추가."
   - "2.9 (2026-07-02): 전수 감사 픽스 세트 (macro v4.9.3) — (a) frontmatter audience/aliases/description 에서 Gemini CLI 선두 표기 제거 (ANTIGRAVITY.md 우선·본 파일 fallback 관계 명시), (b) 백틱 감싼 CLAUDE.md wikilink 정정 (자기 규칙 위반), (c) /inbox 서브폴더 하드카운트 제거, (d) Rule Loading 목록에 mermaid-rules.md 추가, (e) Guide/HQ @import 표기 wikilink 로 정정, (f) token-estimate 3200→8500 실측화, 배너 동기화."
   - "2.8 (2026-07-02): Codex & Codex-Fugu compatibility pass — added `.codex/` runtime layer (README + hooks.json + qmd-reindex.sh + 8 command adapters) and `.agents/skills/` Fugu wrappers for all 8 CMDS Process operations. New AGENTS.md sections: Runtime Entrypoints, Cross-Agent Operation Map, Runtime Compatibility Matrix, Multi-Agent Orchestration. Clarified hooks are manual in Codex/Fugu and wikilinks resolve to paths."
@@ -41,7 +42,7 @@ changelog:
   - "2.0 (2026-04-01): @include 기반 공통 규칙 분리, 중복 60% 제거"
   - "1.0 (2026-03-30): 초기 버전, frontmatter 표준 추가"
 ---
-> **🔄 Last Updated: 2026-08-17** | Backup: `40. Docs/47. CMDS Docs/cmds-system-files/AGENTS_backup.md` | Public: [system.cmdspace.work](https://system.cmdspace.work) (Vercel `cmds-system-files-v2`, deployed from `/Users/yohankoo/DEV/cmds-system-files/`)
+> **🔄 Last Updated: 2026-08-27** | Backup: `40. Docs/47. CMDS Docs/cmds-system-files/AGENTS_backup.md` | Public: [system.cmdspace.work](https://system.cmdspace.work) (Vercel `cmds-system-files-v2`, deployed from `/Users/yohankoo/DEV/cmds-system-files/`)
 
 # AGENTS.md
 
@@ -415,7 +416,7 @@ inbox 항목 빠르게 등록               → /connect
 - **`/inbox` and `/share` never write directly** — `/inbox` is a router, `/share` is an orchestrator.
 - **`/query` results are NOT folder-isolated** — they classify into the appropriate CMDS category (usually `220 Personal Insights`, `210 Literature Reviews`, `5XX Product`) and save to `30. Permanent Notes/` or similar. There is no `30. Queries/` folder. User policy: "내 모든 노트가 쿼리의 소재이고 결과".
 - **CMDS categorization is metadata, not folders**: notes live in existing folder structure (`30. Permanent Notes/`, `60. Collections/`, etc.) and are categorized via `CMDS:` and `index:` frontmatter.
-- **New v2 frontmatter fields** introduced by commands: `mergePurpose`, `sourceNotes`, `mainVaultRelated`, `developSources`, `shareSourceNotes`, `shareFormat`, `sharePurpose`, `queryOrigin`, `querySources`, `sourceInbox`. Use camelCase per frontmatter standard.
+- **New v2 frontmatter fields** introduced by commands: `mergePurpose`, `sourceNotes`, `wikiVaultRelated` (mothership→wiki cross-vault link, advanced-uri 형식 — 2026-08-27 표준, 정본 `.claude/rules/wikilink-rules.md` §6; 역방향 위키→mothership 은 `mainVaultRelated`), `developSources`, `shareSourceNotes`, `shareFormat`, `sharePurpose`, `queryOrigin`, `querySources`, `sourceInbox`. Use camelCase per frontmatter standard.
 - **User dialog tool**: commands use `AskUserQuestion` MCP tool (if available to your agent) with `multiSelect` where applicable, max 4 options, always `(Recommended)` first.
 
 ### For agents without slash command support

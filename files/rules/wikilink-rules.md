@@ -193,3 +193,58 @@ URL / 라이브 사이트 → 그대로               (https://...)
 - `%%이거 검증 필요함%%` → 사실 확인 후 `- 검증: ...` 부연으로 교체
 - `%%내 노트들 연결할 것%%` → 볼트 검색 후 관련 노트 wikilink 블록으로 교체
 - `%% #John #John4 %%` → 보존 (숨은 태그)
+
+---
+
+## 6. Cross-Vault 상호참조 표준 (마더십 ↔ 위키 볼트) — 2026-08-27
+
+Obsidian wikilink 는 볼트 경계를 넘지 못한다. 볼트 간 참조는 **advanced-uri 마크다운 링크**가 표준이다 (`obsidian://open` 은 폴백).
+
+### Frontmatter 필드 — 방향별로 이름이 다르다
+
+| 방향 | 필드 | 값 형식 |
+|------|------|---------|
+| 마더십 노트 → 위키 페이지 | `wikiVaultRelated:` | 마크다운 링크 배열 (아래 형식) |
+| 위키 페이지 → 마더십 노트 | `mainVaultRelated:` | 동일 형식, vault 만 반대 |
+
+### 표준 형식 (advanced-uri)
+
+```yaml
+wikiVaultRelated:
+  - "[LLM Wiki: Epistemic Infrastructure](obsidian://advanced-uri?vault=CMDS_LLM_Wiki&filepath=20.%20Wiki%2F21.%20Concepts%2FEpistemic%20Infrastructure.md)"
+```
+
+```yaml
+# 위키 측 (역방향)
+mainVaultRelated:
+  - "[Mothership: 포맷은 사고를 강제한다](obsidian://advanced-uri?vault=CMDSPACE_Local_MBP&filepath=30.%20Permanent%20Notes%2F%ED%8F%AC%EB%A7%B7%EC%9D%80%20%EC%82%AC%EA%B3%A0%EB%A5%BC%20%EA%B0%95%EC%A0%9C%ED%95%9C%EB%8B%A4.md)"
+```
+
+작성 규칙:
+
+1. **액션 이름은 `advanced-uri`** — `adv-uri` 는 존재하지 않는 액션 (링크 죽음). `obsidian://` 콜론 뒤 공백 금지.
+2. **`filepath=` 는 볼트 루트 기준 전체 경로 + `.md` 확장자**, URL 인코딩 (공백 `%20`, `/` 는 `%2F`). 한글은 인코딩 없이도 동작하지만 공백·슬래시는 반드시 인코딩.
+3. **링크 라벨은 `{볼트 별칭}: {페이지명}`** — `LLM Wiki: X` / `Mothership: X`.
+4. **쓰기 전 대상 파일 실존 확인** (Glob/ls). 존재하지 않는 filepath 는 조용히 죽는 링크가 된다.
+5. **본문 산문에서는** 텍스트 참조 `→ LLM Wiki: {page}` 도 계속 허용 (가벼운 언급용). 클릭 가능해야 하는 참조는 마크다운 링크 형식.
+
+### 폴백 — Advanced URI 플러그인이 대상 볼트에 없을 때
+
+advanced-uri 는 **대상 볼트에 `obsidian-advanced-uri` 플러그인이 설치·활성화**되어 있어야 동작한다. 대상 볼트의 `.obsidian/plugins/obsidian-advanced-uri/` 존재를 확인할 수 없거나 없으면, 플러그인 불요인 기본형으로 폴백:
+
+```yaml
+wikiVaultRelated:
+  - "[LLM Wiki: Epistemic Infrastructure](obsidian://open?vault=CMDS_LLM_Wiki&file=20.%20Wiki%2F21.%20Concepts%2FEpistemic%20Infrastructure)"
+```
+
+폴백 형식 차이: 액션 `open` · 파라미터 `file=` · **`.md` 확장자 없이**. (2026-08 현재 마더십·CMDS_LLM_Wiki 양쪽 모두 플러그인 설치 상태 → 표준형 사용.)
+
+### Anti-Pattern
+
+```yaml
+❌ "[X](obsidian: //advanced-uri?...)"        # 콜론 뒤 공백 — 프로토콜 인식 실패
+❌ "[X](obsidian://adv-uri?...)"              # 존재하지 않는 액션 이름
+❌ "[[LLM Wiki 페이지]]"                       # wikilink 는 볼트 경계 못 넘음 → Inbox 빈 파일 생성
+❌ filepath=20. Wiki/21. Concepts/X.md        # 미인코딩 공백·슬래시 — 파라미터 파싱 깨짐
+❌ open?file=...X.md                          # 폴백형에 .md 붙임 — "X.md.md" 탐색
+```

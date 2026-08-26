@@ -7,12 +7,10 @@ description: "Operational standards guide for the CMDS vault. Defines the 7 requ
 author:
   - "[[구요한]]"
 date created: 2025-09-15T23:39
-date modified: 2026-08-22T21:20
+date modified: 2026-08-24T11:28
 tags:
   - CMDS
   - system
-  - NoteClass
-  - operation
 audience: User + AI
 scope: operational-standards
 precedence: 5
@@ -34,7 +32,7 @@ changelog:
   - "2.8 (2026-07-02): 전수 감사 픽스 세트 (macro v4.9.3) — (a) tags 노이즈 회귀 재제거 (v2.6 정리분이 재발했던 것 — 태그는자유로워야지·index·maps·example·service) + 리스트 포맷 복원, (b) merge 예시 frontmatter 의 CMDS:/index: 방향 오류 수정 (📖→📚, 📚→🏷 — direction rule 과 일치), (c) Properties Template Examples 5종에 description 필드 추가 + 누락된 date modified 4건 보완, (d) 날짜 형식 명세를 frontmatter-standard 와 통일 (초 단위 제거), (e) 표준 Type 목록 CMDS 중복 등재·프로퍼티 CMDS 이중 정의 제거, (f) index: 프로퍼티에 시스템 파일 예외 명문화, (g) Folder Structure 에 실존 폴더 6개 추가 (01. Articles·53·54·65·66·76), (h) Version History 에 v2.6/v2.7 백필."
   - "2.7 (2026-05-30): v4.9.0 pass — added 🔗 Related System Files section with DESIGN.md (precedence 9) visual-standards cross-link; banner/version synced to 2.7."
   - "2.6 (2026-05-20): Tags noise 정리 — `태그는자유로워야지`, `maps`, `example`, `service`, `index` 제거 (vault 일반 태그 시스템과 의미 충돌). Last Updated 헤더 동기화."
-  - "2.5 (2026-05-03): Aligned precedence to 8-file scheme (4→5). Added Antigravity 03-7/03-8 output lanes. Fixed `94. System Prompts/` → `94. Agent Settings/claude/` (folder rename was missed). Removed duplicate `99. Format/` entry. Updated Sync Settings lane reference (03-1~03-4 → 03-1~03-8). Backfilled Version History with v2.3/v2.4/v2.5 entries."
+  - "2.5 (2026-05-03): Aligned precedence to 8-file scheme (4→5). Added Antigravity 03-7/03-8 output lanes. Fixed `90. Settings/94. Agent Settings/` → `94. Agent Settings/claude/` (folder rename was missed). Removed duplicate `90. Settings/98. Format/` entry. Updated Sync Settings lane reference (03-1~03-4 → 03-1~03-8). Backfilled Version History with v2.3/v2.4/v2.5 entries."
   - "2.4 (2026-05-03): Added Codex MBP/Studio AI Agent folders and clarified description double-quote examples."
   - "2.3 (2026-04-07): 필수 프로퍼티 7개로 확장 (description 추가, English required for LLMs)"
   - "2.2 (2026-04-01): precedence/memory-type/token-estimate 추가, tags 정리"
@@ -586,7 +584,7 @@ date modified: 2026-03-30
 - **v2.8** (2026-07-02): 전수 감사 픽스 — tags 노이즈 회귀 재제거, merge 예시 CMDS:/index: 방향 오류 수정, 템플릿 예시 5종 description·date modified 보완, 날짜 형식 통일 (초 단위 제거), CMDS 타입/프로퍼티 중복 제거, index: 시스템 파일 예외 명문화, Folder Structure 실존 폴더 6개 추가
 - **v2.7** (2026-05-30): 🔗 Related System Files 섹션 추가 (DESIGN.md precedence 9 cross-link), 배너·버전 동기화
 - **v2.6** (2026-05-20): Tags 노이즈 정리 (`태그는자유로워야지`·`maps`·`example`·`service`·`index` 제거), Last Updated 헤더 동기화
-- **v2.5** (2026-05-03): 8-file precedence 정렬 (4→5), Antigravity 03-7/03-8 lane 추가, `94. System Prompts/` → `94. Agent Settings/claude/` 폴더 이름 갱신, `99. Format/` 중복 제거, Sync Settings lane 표기 갱신 (`03-1~03-8`)
+- **v2.5** (2026-05-03): 8-file precedence 정렬 (4→5), Antigravity 03-7/03-8 lane 추가, `90. Settings/94. Agent Settings/` → `94. Agent Settings/claude/` 폴더 이름 갱신, `90. Settings/98. Format/` 중복 제거, Sync Settings lane 표기 갱신 (`03-1~03-8`)
 - **v2.4** (2026-05-03): Codex MBP/Studio AI Agent 폴더 추가, description double-quote 예시 명확화
 - **v2.3** (2026-04-07): 필수 프로퍼티 7개로 확장 (description 추가, English required for LLMs)
 - **v2.2** (2026-03-30): Property 네이밍 규칙 섹션 추가, `channel` 노트 타입 도입

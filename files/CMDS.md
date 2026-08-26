@@ -7,7 +7,7 @@ description: "Context and philosophy guide for all LLM assistants working with t
 author:
   - "[[구요한]]"
 date created: 2025-10-22T21:52
-date modified: 2026-07-02
+date modified: 2026-08-24T11:19
 tags:
   - CMDS
   - system
@@ -332,7 +332,7 @@ The CMDS system organizes all knowledge into 9 major categories, each representi
 - 📚 908 Events & Community Engagement Division
 - 📚 909 Consulting & Advisory Division _(구: Consulting & Professional Services)_
 
-**9Yohan Constellation (2026-04-19 확정)**: 각 Division은 역사적 "요한"과 성령의 열매에 매핑됨. 정본은 `00. Inbox/03. AI Agent/03-1. Claude Code (MBP)/2026-04-19-9yohan-orchestration/1. Identity/canonical.md`.
+**9Yohan Constellation (2026-04-19 확정)**: 각 Division은 역사적 "요한"과 성령의 열매에 매핑됨. 정본은 `70. Outputs/74. Projects/9yohan Constellation/1. Identity/canonical.md`.
 
 | Division | Head | Fruit | Handle |
 |----------|------|------|--------|

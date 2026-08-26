@@ -7,8 +7,10 @@ description: "Claude Code specific technical implementation guide. Defines file 
 author:
   - "[[구요한]]"
 date created: 2025-09-27T17:53
-date modified: 2026-08-24T12:00
-tags: [CMDS, system, 1, 2]
+date modified: 2026-08-27T06:30
+tags:
+  - CMDS
+  - system
 audience: Claude Code
 scope: technical-implementation
 precedence: 1
@@ -24,9 +26,10 @@ optional-for:
 token-estimate: 12500
 CMDS: "[[📚 501 Obsidian]]"
 index: "[[🏛 CMDS Head Quarter]]"
-version: "4.7"
+version: "4.8"
 status: completed
 changelog:
+  - "4.8 (2026-08-27): Cross-vault 상호참조 표준 도입 (macro v4.10.2) — wikiVaultRelated(모선→위키)/mainVaultRelated(위키→모선) 방향별 필드 + advanced-uri 마크다운 링크 표준 + 플러그인 부재 시 obsidian://open 폴백. Cross-Vault Reference Convention 섹션·인용 표기·v2 필드 목록 갱신. 정본은 wikilink-rules.md §6. tags inline 회귀 복원 (6번째 재발)."
   - "4.7 (2026-08-22): 데일리·위클리 로그 이관 (macro v4.10.1) — 00. Inbox/01. Daily Notes (01-1. Planners·01-2. Weekly Notes 포함) 폐지, 10. CMDS Process/15. Periodic/ (Daily/·Weekly/) 신설. /daily·/weekly 산출 경로 표 갱신. 근거: 데일리는 트리아지 대상이 아닌 영구 시계열 로그 — Inbox 성격과 모순."
   - "4.6 (2026-08-17): Periodic Agent Notes 체제 신설 (macro v4.10.0) — /daily·/weekly 에이전트 작성 노트 섹션 추가 (04:00 하루 경계, draft 21:23 + finalize 04:53 OmniControl 잡, dailyStatus 멱등성, 사람 영역 불변, 스냅샷 표 = /weekly 원천 데이터). 에이전트 작성 노트의 model/effort frontmatter 컨벤션 (LLM Wiki 페르소나 컨벤션 이식) 참조 추가."
   - "4.5 (2026-07-12): 경량화 패스 (macro v4.9.4) — 중복 제거 diet (848→722줄, 53.7→48.2KB). (a) 동기화 8-destination 목록 3회 반복 → 1회 (ASCII 다이어그램·자동화 플로우 블록 제거, 인트로 문단+bash 정본 유지), (b) Claude Settings Sync 를 directory-structure.md 정본 포인터로 압축, (c) When to Use Which File 리스트 제거 (9-file 표와 1:1 중복), (d) 멤버 별 vault 매핑 표 → 한 줄 요약, (e) Decision Tree 를 AGENTS.md 압축형으로 통일, (f) frontmatter 필드 리스트·Mermaid 핵심 3가지·Special Characters 섹션 제거 (@import rules 와 중복), (g) AI Integration symlink 서술 압축. 별도 픽스: Vault Commands heredoc 에 description 필드 추가 + 'EOF' quote 제거 ($(date) 미확장 버그). token-estimate 14000→12500 재실측."
@@ -48,7 +51,7 @@ changelog:
   - "2.1 (2026-03-30): frontmatter 표준 추가, 백업 경로 이동"
   - "2.0 (2026-03-15): 전면 리뷰, 통계 갱신, GitHub/Web 링크"
 ---
-> **🔄 Last Updated: 2026-08-25** | Backup: `40. Docs/47. CMDS Docs/cmds-system-files/CLAUDE_backup.md` | GitHub: [cmds-system-files](https://github.com/johnfkoo951/cmds-system-files) (코드 히스토리, 자동 배포 아님) | Web: [system.cmdspace.work](https://system.cmdspace.work) (Vercel `cmds-system-files-v2`)
+> **🔄 Last Updated: 2026-08-27** | Backup: `40. Docs/47. CMDS Docs/cmds-system-files/CLAUDE_backup.md` | GitHub: [cmds-system-files](https://github.com/johnfkoo951/cmds-system-files) (코드 히스토리, 자동 배포 아님) | Web: [system.cmdspace.work](https://system.cmdspace.work) (Vercel `cmds-system-files-v2`)
 
 # CLAUDE.md
 
@@ -321,18 +324,23 @@ This mothership vault has **6 companion vaults** — separate Obsidian vaults wi
 
 Obsidian does not support direct wikilinks between vaults. Use the following:
 
-**To reference any companion vault from this (mothership) vault:**
+**Frontmatter 상호참조 (2026-08-27 표준 — 정본: `.claude/rules/wikilink-rules.md` §6)**: 볼트 간 링크는 **advanced-uri 마크다운 링크**가 표준. 방향별 필드 — mothership 노트 → 위키 페이지는 `wikiVaultRelated:`, 위키 페이지 → mothership 노트는 `mainVaultRelated:`.
 
 ```yaml
-# Frontmatter
+# Mothership 노트에서 위키 페이지 참조
+wikiVaultRelated:
+  - "[LLM Wiki: Epistemic Infrastructure](obsidian://advanced-uri?vault=CMDS_LLM_Wiki&filepath=20.%20Wiki%2F21.%20Concepts%2FEpistemic%20Infrastructure.md)"
+# 그 외 companion vault 는 기존 관례 유지
 source-vault: CMDS_LLM_Wiki   # 또는 CMDS_JoonLab, CMDS_Gobi, GOBI, CMDSPACE_Admin, cmds-vault
 related:
   - "[[🛰 CMDS_LLM_Wiki Satellite Vault]]"  # always link the entry point
 ```
 
+> **폴백**: advanced-uri 는 *대상 볼트에* `obsidian-advanced-uri` 플러그인이 있어야 동작. 플러그인이 없는 볼트를 가리킬 때는 기본형 `obsidian://open?vault=...&file={path without .md}` 사용 (액션 `open` · 파라미터 `file=` · `.md` 없음). filepath 는 URL 인코딩 필수, 액션 이름 `adv-uri` 오타 금지 — 상세는 wikilink-rules.md §6.
+
 ```markdown
-# Body text (companion vault pages, obsidian:// URL 권장)
-[Multi-Vault Architecture](obsidian://open?vault=CMDS_LLM_Wiki&file=20.%20Wiki%2F23.%20Guides%2FMulti-Vault%20Architecture)
+# Body text (companion vault pages — advanced-uri 권장, 가벼운 언급은 텍스트 참조 허용)
+[Multi-Vault Architecture](obsidian://advanced-uri?vault=CMDS_LLM_Wiki&filepath=20.%20Wiki%2F23.%20Guides%2FMulti-Vault%20Architecture.md)
 
 # 또는 텍스트 참조
 → LLM Wiki: Multi-Vault Architecture
@@ -342,7 +350,7 @@ related:
 
 **To reference this vault from any companion:**
 
-Companion 노트는 `source-vault: CMDSPACE_Local_MBP` + obsidian:// URL 사용 (`obsidian://open?vault=CMDSPACE_Local_MBP&file=...`).
+Companion 노트는 `source-vault: CMDSPACE_Local_MBP` + `mainVaultRelated:` (advanced-uri, `vault=CMDSPACE_Local_MBP`) 사용. 플러그인 없는 환경은 `obsidian://open?vault=CMDSPACE_Local_MBP&file=...` 폴백.
 
 ### When to Work in Which Vault — Governance 우선 결정 트리
 
@@ -381,7 +389,7 @@ Companion 노트는 `source-vault: CMDSPACE_Local_MBP` + obsidian:// URL 사용 
 | **레퍼런스 층** | 🛰 CMDS_LLM_Wiki | LLM 이 컴파일한 넓은 커버리지 — 논문 원문 ingest (Raw Sources), 이론 간 cross-reference, "찾아보는" 지식 | 10. Raw Sources → 20. Wiki |
 
 - 워크플로: 내재화 층은 `/connect`(용어·관심 stub) → `/merge`(N 소스 → 1 Literature 노트). 레퍼런스 층은 satellite 의 `/ingest`.
-- 두 층은 복사본이 아니라 역할 분담 — mothership 노트는 `→ LLM Wiki: {page}` 텍스트 참조로 위키를 가리키고, 위키 페이지는 `mainVaultRelated:` 로 역참조.
+- 두 층은 복사본이 아니라 역할 분담 — mothership 노트는 `wikiVaultRelated:` (advanced-uri 링크, wikilink-rules.md §6)로 위키를 가리키고, 위키 페이지는 `mainVaultRelated:` 로 역참조. 본문 산문의 가벼운 언급은 `→ LLM Wiki: {page}` 텍스트 참조 허용.
 - 예시 패턴: "학습 이론 30개 훑어 정리" = 위키 컴파일 → 그중 강의 척추가 되는 이론만 mothership 에서 본인 노트로 재작성.
 
 → 위키 측 정본: [Multi-Vault Architecture](obsidian://open?vault=CMDS_LLM_Wiki&file=20.%20Wiki%2F23.%20Guides%2FMulti-Vault%20Architecture) § 3 Type B "이론·프레임워크 배치" · [Wiki Vault as Learning Outpost](obsidian://open?vault=CMDS_LLM_Wiki&file=20.%20Wiki%2F21.%20Concepts%2FWiki%20Vault%20as%20Learning%20Outpost)
@@ -454,7 +462,7 @@ Companion 노트는 `source-vault: CMDSPACE_Local_MBP` + obsidian:// URL 사용 
 
 **Anti-pattern (이번 세션의 실수)**: 정확한 제목(`RAG vs Compiled Wiki`)을 알아서 Grep + Read 로 직행했더니, 같은 주제에 묶여있던 `Shared State Pattern`, `Choosing Multi-Agent Patterns` 페이지를 놓침 → 팀 멀티 저자 시나리오에서 결정적인 통찰 누락. 정확한 페이지를 안다고 해서 qmd 를 건너뛰면 안 됨 — **확장 검색 (관련 개념 1-hop) 의 비용이 매우 낮다**.
 
-**인용 표기**: 본문에서는 `→ LLM Wiki: {page name}` 텍스트 참조로 크로스-볼트 링크를 표시한다 (Obsidian wikilink 는 볼트 경계 못 넘음).
+**인용 표기**: 클릭 가능해야 하는 크로스-볼트 참조는 advanced-uri 마크다운 링크 (frontmatter 는 `wikiVaultRelated:`), 본문 산문의 가벼운 언급은 `→ LLM Wiki: {page name}` 텍스트 참조 (Obsidian wikilink 는 볼트 경계 못 넘음 — 형식 정본: wikilink-rules.md §6).
 
 ---
 
@@ -497,7 +505,7 @@ inbox 항목 빠르게 분류·등록          → /connect
 - **Automation density per command**: `/connect` auto-pilots with minimal user input; `/merge` deliberately preserves multi-dialog because synthesis involves information loss; `/develop` and `/share` ask only at the type/format decision; `/lint` and `/status` are zero-dialog.
 - **`AskUserQuestion` everywhere it's used**: stage commands use the MCP tool with multiSelect where applicable, max 4 options per question. Always include a "(Recommended)" first option based on context.
 - **CMDS categorization is metadata, not folders**: there is no `100/`, `200/`, etc. physical folder. Notes live in the existing folder structure (`30. Permanent Notes/`, `60. Collections/`, etc.) and are categorized via `CMDS:` and `index:` frontmatter.
-- **All commands honor pre-flight rules**: `frontmatter-standard.md`, `wikilink-rules.md`, `indentation-rules.md`, `file-creation-rules.md`. New v2 fields introduced: `mergePurpose`, `sourceNotes`, `mainVaultRelated`, `developSources`, `shareSourceNotes`, `shareFormat`, `sharePurpose`, `queryOrigin`, `querySources`.
+- **All commands honor pre-flight rules**: `frontmatter-standard.md`, `wikilink-rules.md`, `indentation-rules.md`, `file-creation-rules.md`. New v2 fields introduced: `mergePurpose`, `sourceNotes`, `wikiVaultRelated` (mothership→wiki, advanced-uri — 2026-08-27 `mainVaultRelated` 텍스트형 대체; `mainVaultRelated` 는 위키→mothership 역방향 전용으로 존치), `developSources`, `shareSourceNotes`, `shareFormat`, `sharePurpose`, `queryOrigin`, `querySources`.
 
 ### Typical Session Patterns
 
