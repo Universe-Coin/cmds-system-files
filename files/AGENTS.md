@@ -7,7 +7,7 @@ description: "Technical guide for non-Claude AI coding agents (Codex, Cursor, Wi
 author:
   - "[[구요한]]"
 date created: 2026-01-02T16:30
-date modified: 2026-08-27T06:30
+date modified: 2026-08-29
 tags:
   - CMDS
   - system
@@ -25,9 +25,10 @@ optional-for:
 token-estimate: 8500
 CMDS: "[[📚 501 Obsidian]]"
 index: "[[🏛 CMDS Head Quarter]]"
-version: "2.11"
+version: "2.12"
 status: completed
 changelog:
+  - "2.12 (2026-08-29): CMDS Process 커맨드 8 → 10 — `/seeds`·`/harvest` 를 Cross-cutting utilities 표와 결정 트리에 등록. Codex/Fugu 는 `.codex/commands/` · `.agents/skills/` 미러가 아직 없으므로 Claude 커맨드 스펙을 워크플로 문서로 참조할 것 (3-place parity 미완 — 후속 작업)."
   - "2.11 (2026-08-27): Cross-vault 상호참조 표준 반영 (macro v4.10.2) — v2 frontmatter 필드 목록에 wikiVaultRelated 추가 (advanced-uri 형식, 역방향은 mainVaultRelated). 정본은 wikilink-rules.md §6."
   - "2.10 (2026-08-17): Periodic agent notes 섹션 신설 (macro v4.10.0) — /daily·/weekly 는 Claude Code 스케줄 전용임을 명시, 타 에이전트 규칙 3종 (재생성 금지·사람 영역 불변+dailyStatus 확인·model/effort frontmatter 기록) 추가."
   - "2.9 (2026-07-02): 전수 감사 픽스 세트 (macro v4.9.3) — (a) frontmatter audience/aliases/description 에서 Gemini CLI 선두 표기 제거 (ANTIGRAVITY.md 우선·본 파일 fallback 관계 명시), (b) 백틱 감싼 CLAUDE.md wikilink 정정 (자기 규칙 위반), (c) /inbox 서브폴더 하드카운트 제거, (d) Rule Loading 목록에 mermaid-rules.md 추가, (e) Guide/HQ @import 표기 wikilink 로 정정, (f) token-estimate 3200→8500 실측화, 배너 동기화."
@@ -42,7 +43,7 @@ changelog:
   - "2.0 (2026-04-01): @include 기반 공통 규칙 분리, 중복 60% 제거"
   - "1.0 (2026-03-30): 초기 버전, frontmatter 표준 추가"
 ---
-> **🔄 Last Updated: 2026-08-27** | Backup: `40. Docs/47. CMDS Docs/cmds-system-files/AGENTS_backup.md` | Public: [system.cmdspace.work](https://system.cmdspace.work) (Vercel `cmds-system-files-v2`, deployed from `/Users/yohankoo/DEV/cmds-system-files/`)
+> **🔄 Last Updated: 2026-08-29** | Backup: `40. Docs/47. CMDS Docs/cmds-system-files/AGENTS_backup.md` | Public: [system.cmdspace.work](https://system.cmdspace.work) (Vercel `cmds-system-files-v2`, deployed from `/Users/yohankoo/DEV/cmds-system-files/`)
 
 # AGENTS.md
 
@@ -367,7 +368,7 @@ Templates are in `90. Settings/91. Templates/`. Key templates:
 
 ## CMDS Process Command Suite (2026-04-14+)
 
-The mothership has 8 slash commands aligned with the **CMDS Process** (Connect → Merge → Develop → Share). Canonical implementation lives in `.claude/commands/` (symlinked to `90. Settings/94. Agent Settings/claude/commands/`). Codex-native runtime translations live in `.codex/commands/{op}.md`, and Fugu-discoverable wrappers live in `.agents/skills/{op}/SKILL.md` (see **Cross-Agent Operation Map** above). If your agent runtime supports Claude Code-compatible slash commands, you can invoke these directly; Codex should use its `.codex/` / `.agents/` entrypoints; otherwise, treat them as workflow documentation for how the user thinks about vault operations.
+The mothership has 10 slash commands aligned with the **CMDS Process** (Connect → Merge → Develop → Share). Canonical implementation lives in `.claude/commands/` (symlinked to `90. Settings/94. Agent Settings/claude/commands/`). Codex-native runtime translations live in `.codex/commands/{op}.md`, and Fugu-discoverable wrappers live in `.agents/skills/{op}/SKILL.md` (see **Cross-Agent Operation Map** above). If your agent runtime supports Claude Code-compatible slash commands, you can invoke these directly; Codex should use its `.codex/` / `.agents/` entrypoints; otherwise, treat them as workflow documentation for how the user thinks about vault operations.
 
 ### Stage commands (the 4-stage knowledge lifecycle)
 
@@ -386,6 +387,8 @@ The mothership has 8 slash commands aligned with the **CMDS Process** (Connect �
 | `/lint {scope}` | Health check by stage scope (inbox/connect/merge/develop/share/all). Read-only. |
 | `/query` | Search vault + LLM Wiki, synthesize answer, file back to appropriate CMDS category (NOT a separate folder). |
 | `/status` | One-screen stage snapshot + recommended next action. Zero dialogs. |
+| `/seeds` | Harvest title-only seed notes → separate seed/residue/how-to, cluster, propose angles, build 📚 101/102 hubs. Mothership-only. |
+| `/harvest` | Cross-vault harvest over all 7 vaults — unlinked pairs, seeds already compiled in the wiki, wiki orphans, concept drift. Read-only on companion vaults. |
 
 ### When to use which
 
@@ -397,6 +400,8 @@ inbox 항목 빠르게 등록               → /connect
 방법론 적용 / 코드·프롬프트 생성     → /develop
 기존 합성 → 외부 산출물              → /share
 볼트에 질문 (자신의 글 + LLM Wiki)   → /query
+제목만 걸어둔 씨앗 → 글감·허브        → /seeds
+볼트 생태계 전체 교차 수확           → /harvest
 위생 점검 (모순/orphan/stale)        → /lint
 ```
 

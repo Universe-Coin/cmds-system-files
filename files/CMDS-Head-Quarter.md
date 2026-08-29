@@ -7,7 +7,7 @@ description: "Central navigation hub for the CMDS vault. Provides links to 87 su
 author:
   - "[[구요한]]"
 date created: 2025-10-23T01:59
-date modified: 2026-08-19T15:55
+date modified: 2026-08-29T10:15
 tags:
   - CMDS
   - system
@@ -22,9 +22,10 @@ optional-for:
   - code-generation
 token-estimate: 1800
 index: "[[🏛 CMDS Guide]]"
-version: "1.7"
+version: "1.8"
 status: completed
 changelog:
+  - "1.8 (2026-08-29): 깨진 wikilink 수정 — L133 `[[📚 903 clTeaching & Curriculum Division]]` → `[[📚 903 Teaching & Curriculum Division]]` (실파일명에 없는 `cl` 삽입 오염, 2026-08-19 편집분에서 유입. 클릭 시 Inbox 에 빈 placeholder 생성되는 상태였음). 배너·date modified 동기화. /lint all 에서 발견."
   - "1.7 (2026-07-02): 전수 감사 픽스 세트 (macro v4.9.3) — (a) description 의 '91 sub-categories' → 실측 87 정정, (b) 300 Data 하위 3항목 4-space → TAB 인덴트 정규화 + trailing space 제거, (c) Links:: 자기참조 제거, (d) Satellite Vaults 섹션을 Companion Vaults (6) 표로 확장 (7-vault ecosystem 반영), (e) 배너·date modified 동기화."
   - "1.6 (2026-05-30): v4.9.0 pass — added 🗂 System Files (9) section (public/private split + DESIGN.md precedence 9); restored full 100-900 category nav after an edit-pass truncation. Banner/date synced to 2026-05-30."
   - "1.5 (2026-05-22): 9-file scheme 인지 갱신 — HQ 본문은 카테고리 navigation 전용이라 system files 표 없음. Frontmatter changelog 만 갱신해 정합성 표시. DESIGN.md 의 시각 산출물 spec 으로의 역할은 CLAUDE/AGENTS/ANTIGRAVITY/CMDS 가 다룸."
@@ -36,10 +37,9 @@ changelog:
 share_link: https://share.note.sx/fhfd1sg3#k4DqRdPCseLgf3fC7XlKzkIs/Hr5ZLdr/R6f5vlVJN0
 share_updated: 2025-08-25T11:43:35+09:00
 ---
-> **🔄 Last Updated: 2026-07-02** | Backup: `40. Docs/47. CMDS Docs/cmds-system-files/CMDS-Head-Quarter_backup.md`
+> **🔄 Last Updated: 2026-08-29** | Backup: `40. Docs/47. CMDS Docs/cmds-system-files/CMDS-Head-Quarter_backup.md`
 
 Links:: [[🏛 CMDS Guide]]
-References:: [[🏛 000 YHN Home]]
 ## CMDS
 - #### [[📖 100 Themes]]
 	- [[📚 101 Interests]]
@@ -130,7 +130,7 @@ References:: [[🏛 000 YHN Home]]
 - #### [[📖 900 Divisions]]
 	- [[📚 901 Knowledge Management & Research Division]] · 케플러 요한 · 온유
 	- [[📚 902 Writing & Publishing Division]] · 괴테 요한 · 사랑
-	- [[📚 903 clTeaching & Curriculum Division]] · 듀이 요한 · 자비
+	- [[📚 903 Teaching & Curriculum Division]] · 듀이 요한 · 자비
 	- [[📚 904 Creative Arts & Media Division]] · 바흐 요한 · 희락
 	- [[📚 905 Research Methods & Analytics Division]] · 노이만 요한 · 절제
 	- [[📚 906 Partnerships & Networks Division]] · 세례요한 · 오래 참음

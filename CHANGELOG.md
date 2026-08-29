@@ -29,6 +29,36 @@ CMDS: "[[📚 501 Obsidian]]"
 
 ---
 
+## v4.11.0 — 2026-08-29 (커맨드 8 → 10: /seeds · /harvest · 레거시 0XX 넘버링 전면 폐기)
+
+### File Version Snapshot
+
+| File | Version | Δ from v4.10.2 |
+|------|:-------:|:------------------:|
+| CLAUDE.md | 4.9 | ⬆ 4.8 → 4.9 |
+| AGENTS.md | 2.12 | ⬆ 2.11 → 2.12 |
+| ANTIGRAVITY.md | 2.5 | ⬆ 2.4 → 2.5 |
+| CMDS.md | 2.10 | ⬆ 2.9 → 2.10 |
+| 🏛 CMDS Guide.md | 2.10 | — |
+| 🏛 CMDS Head Quarter.md | 1.8 | ⬆ 1.7 → 1.8 |
+| DESIGN.md | 1.2 | — |
+| BRAIN.md *(internal)* | (Gobi-managed) | — |
+| BRAIN_PROMPT.md *(internal)* | (Gobi-managed) | — |
+
+### Changes
+
+- **CMDS Process 커맨드 8 → 10 확장**
+	- `/seeds` — 제목만 걸어둔 씨앗 노트를 **씨앗 / 잔해 / How-to** 로 가르고 클러스터링해 글감을 제안하며, `📚 101 Interests`(개념의 모음)와 `📚 102 Topics`(이질적인 것의 연결 → 창발) 허브 노트를 생성. 마더십 전용, 월 1회 주기.
+	- `/harvest` — 7볼트 생태계를 가로질러 **끊긴 쌍 · 이미 컴파일된 씨앗 · 위키 고아 · 개념 drift** 4종을 수확. companion 볼트(JoonLab·Admin·GOBI)는 거버넌스상 읽기 전용, 분기 1회 주기.
+	- 분리 근거: 제목만 있는 노트는 결함이 아니라 **의도적 백로그**이며, 씨앗과 잔해를 가르는 일 자체가 판단이다. read-only 진단인 `/lint` 의 계약에 맞지 않아 전용 생성 커맨드로 분리했다. `/lint`·`/status` 는 카운트 포인터만 제공.
+- **레거시 0XX 카테고리 넘버링 전면 폐기** — 구 체계(`📚 015 Generative AI`, `📚 044 Machine Learning`, `📚 011 Interests`, `🏛 000 YHN Home` 등) **49종 · 922 인바운드**가 `09. Legacy/` 안에 3중 복제로 살아 있으면서 Obsidian 의 basename resolve 를 통해 현행 노트의 링크를 흡수하고 있었다.
+	- **454개 파일**의 링크를 현행 체계로 이관 (미매핑 0건). `📚 047 Syntax, Codes, and Prompts` 는 참조 노트 내용에 따라 492 Prompts(59) / 491 Codes(8) 로 분배.
+	- `🏛 000 YHN Home` → `🏛 CMDS Head Quarter` 리다이렉트 후 구 허브 노트 격리. CMDS.md 의 중복 hub 항목과 HQ 의 자기참조 줄 제거.
+	- 구 카테고리 파일 **79개 격리**, 이관된 레거시 노트 중 고유 내용 **208개를 Inbox 로 승격** (`00. Inbox/2026-08-29-legacy-0xx-promoted/`).
+- **깨진 wikilink 수정** — `🏛 CMDS Head Quarter` L133 `[[📚 903 clTeaching & Curriculum Division]]` (실파일명에 없는 `cl` 삽입 오염, 2026-08-19 유입). 클릭 시 Inbox 에 빈 placeholder 를 만드는 상태였고, backup·share 사본에도 전파돼 있었다. 9종 시스템 파일 wikilink 전수 검증 결과 실제 파손은 이 1건.
+- **배너 날짜 drift 소급 정정** — CMDS.md 배너가 v2.9(07-02) 에 머문 채 08-24 편집분이 changelog 없이 반영돼 53일간 stale 이었던 것을 v2.10 으로 기록. HQ 도 동일 패턴(48일)을 v1.8 로 정리. 감사 플레이북이 지적한 "3자 날짜 불일치" 회귀의 재발 사례.
+- Hygiene: `index:` 방향 위반 8건 정정(📚/📖 → 🏷), 개행문자 포함 파일명 4건 정규화, Live Scribe 전사 출력 경로를 볼트 루트 `Transcripts/` → `00. Inbox/08. Transcripts/08-2. STT` 로 이전.
+
 ## v4.10.2 — 2026-08-27 (Cross-Vault 상호참조 표준 — advanced-uri + 방향별 필드)
 
 ### File Version Snapshot

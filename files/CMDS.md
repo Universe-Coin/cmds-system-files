@@ -24,9 +24,10 @@ optional-for:
 token-estimate: 8500
 CMDS: "[[📚 601 Knowledge Management]]"
 index: "[[🏛 CMDS Head Quarter]]"
-version: "2.9"
+version: "2.10"
 status: completed
 changelog:
+  - "2.10 (2026-08-24): 9Yohan Constellation 정본 경로를 실제 위치로 정정 (`00. Inbox/03. AI Agent/03-1. Claude Code (MBP)/2026-04-19-9yohan-orchestration/` → `70. Outputs/74. Projects/9yohan Constellation/`). 2026-08-24 편집분이 changelog·배너에 기록되지 않아 v2.9 배너가 53일간 stale 이었던 것을 소급 기록 (2026-08-29 /lint all 에서 발견)."
   - "2.9 (2026-07-02): 전수 감사 픽스 세트 (macro v4.9.3) — (a) tags stray `3` 3번째 재발 제거·리스트 포맷 복원, (b) cmds-llm-wiki 스타터킷 버전 v1.4.0 → v1.7.0 실측 갱신, (c) 최상위 폴더 카운트 9→10 정정, (d) 폴더 wikilink 2곳을 백틱 경로로 정정 (60. Collections/63. Meetings), (e) When Creating New Notes 필수 프로퍼티를 7개 전부로 확장 (description·date modified 누락 보완), (f) '91 카테고리' → 실측 87 정정 2곳, (g) 배너 탭 문자 정규화 + 날짜 동기화."
   - "2.8 (2026-05-30): v4.9.0 pass — fixed 9Yohan + starter-kit paths, count accuracy, PhD-paused annotations, Antigravity added to tools."
   - "2.7 (2026-05-22): 8→9 system files 전환 — DESIGN.md (precedence 9, Visual Language tier) 추가. System Documentation Overview 에 🎨 Visual Language 테이블 추가, Essential 섹션 카운트 8→9 + 공개 5→6 갱신, body 본문 참조 3건 갱신. Tags 잔존 `3` 제거. (deployed in macro v4.8.0, 2026-05-27)"
@@ -38,7 +39,7 @@ changelog:
   - "2.1 (2026-04-01): precedence/memory-type/required-for/token-estimate 추가"
   - "2.0 (2026-03-15): 전면 리뷰, 통계 갱신, AI Tools 업데이트"
 ---
-> **🔄 Last Updated: 2026-07-02** | Backup: `40. Docs/47. CMDS Docs/cmds-system-files/CMDS_backup.md` | Public: [system.cmdspace.work](https://system.cmdspace.work)
+> **🔄 Last Updated: 2026-08-24** | Backup: `40. Docs/47. CMDS Docs/cmds-system-files/CMDS_backup.md` | Public: [system.cmdspace.work](https://system.cmdspace.work)
 
 # CMDS.md
 
@@ -413,7 +414,7 @@ The CMDS framework is not just a filing system—it's a **process** that guides 
 ### Key Hub Notes
 - **[[🏛 CMDS Head Quarter]]** — Central navigation hub, links to all 9 categories
 - **[[🏛 CMDS Guide]]** — Properties standards, naming conventions, operational guidelines
-- **[[🏛 000 YHN Home]]** — Personal home page
+- **[[🏛 CMDS Head Quarter]]** — Personal home page
 
 ### Index Notes (🏷)
 Index notes aggregate related content across categories:

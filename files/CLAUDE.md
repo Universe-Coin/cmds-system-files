@@ -7,7 +7,7 @@ description: "Claude Code specific technical implementation guide. Defines file 
 author:
   - "[[구요한]]"
 date created: 2025-09-27T17:53
-date modified: 2026-08-27T06:30
+date modified: 2026-08-29
 tags:
   - CMDS
   - system
@@ -26,9 +26,10 @@ optional-for:
 token-estimate: 12500
 CMDS: "[[📚 501 Obsidian]]"
 index: "[[🏛 CMDS Head Quarter]]"
-version: "4.8"
+version: "4.9"
 status: completed
 changelog:
+  - "4.9 (2026-08-29): CMDS Process 커맨드 8 → 10 확장 — `/seeds` (제목만 걸어둔 씨앗 노트를 씨앗/잔해/How-to 로 분류·클러스터링 → 글감 제안 + 📚 101 Interests / 📚 102 Topics 허브 생성, 마더십 전용) 와 `/harvest` (7볼트 생태계 교차 수확 — 끊긴 쌍·이미 컴파일된 씨앗·위키 고아·개념 drift, companion 볼트는 읽기 전용) 신설. Command Map 표·결정 트리 갱신. 배경: /lint all 에서 제목만 있는 노트 833건(인바운드 있는 47 / 없는 786)이 확인됐고, 이는 결함이 아니라 의도적 백로그이므로 read-only 진단인 lint 가 아니라 전용 생성 커맨드가 담당하도록 분리."
   - "4.8 (2026-08-27): Cross-vault 상호참조 표준 도입 (macro v4.10.2) — wikiVaultRelated(모선→위키)/mainVaultRelated(위키→모선) 방향별 필드 + advanced-uri 마크다운 링크 표준 + 플러그인 부재 시 obsidian://open 폴백. Cross-Vault Reference Convention 섹션·인용 표기·v2 필드 목록 갱신. 정본은 wikilink-rules.md §6. tags inline 회귀 복원 (6번째 재발)."
   - "4.7 (2026-08-22): 데일리·위클리 로그 이관 (macro v4.10.1) — 00. Inbox/01. Daily Notes (01-1. Planners·01-2. Weekly Notes 포함) 폐지, 10. CMDS Process/15. Periodic/ (Daily/·Weekly/) 신설. /daily·/weekly 산출 경로 표 갱신. 근거: 데일리는 트리아지 대상이 아닌 영구 시계열 로그 — Inbox 성격과 모순."
   - "4.6 (2026-08-17): Periodic Agent Notes 체제 신설 (macro v4.10.0) — /daily·/weekly 에이전트 작성 노트 섹션 추가 (04:00 하루 경계, draft 21:23 + finalize 04:53 OmniControl 잡, dailyStatus 멱등성, 사람 영역 불변, 스냅샷 표 = /weekly 원천 데이터). 에이전트 작성 노트의 model/effort frontmatter 컨벤션 (LLM Wiki 페르소나 컨벤션 이식) 참조 추가."
@@ -51,7 +52,7 @@ changelog:
   - "2.1 (2026-03-30): frontmatter 표준 추가, 백업 경로 이동"
   - "2.0 (2026-03-15): 전면 리뷰, 통계 갱신, GitHub/Web 링크"
 ---
-> **🔄 Last Updated: 2026-08-27** | Backup: `40. Docs/47. CMDS Docs/cmds-system-files/CLAUDE_backup.md` | GitHub: [cmds-system-files](https://github.com/johnfkoo951/cmds-system-files) (코드 히스토리, 자동 배포 아님) | Web: [system.cmdspace.work](https://system.cmdspace.work) (Vercel `cmds-system-files-v2`)
+> **🔄 Last Updated: 2026-08-29** | Backup: `40. Docs/47. CMDS Docs/cmds-system-files/CLAUDE_backup.md` | GitHub: [cmds-system-files](https://github.com/johnfkoo951/cmds-system-files) (코드 히스토리, 자동 배포 아님) | Web: [system.cmdspace.work](https://system.cmdspace.work) (Vercel `cmds-system-files-v2`)
 
 # CLAUDE.md
 
@@ -468,7 +469,7 @@ Companion 노트는 `source-vault: CMDSPACE_Local_MBP` + `mainVaultRelated:` (ad
 
 ## CMDS Process Command Suite (2026-04-14+)
 
-The mothership has 8 slash commands aligned with the **CMDS Process** (Connect → Merge → Develop → Share). They live in `90. Settings/94. Agent Settings/claude/commands/` (symlinked from `.claude/commands/`).
+The mothership has 10 slash commands aligned with the **CMDS Process** (Connect → Merge → Develop → Share). They live in `90. Settings/94. Agent Settings/claude/commands/` (symlinked from `.claude/commands/`).
 
 ### Command Map
 
@@ -482,6 +483,8 @@ The mothership has 8 slash commands aligned with the **CMDS Process** (Connect �
 | `/lint` | Cross-cutting | Health check by stage scope (inbox/connect/merge/develop/share/all). **Read-only**, surfaces issues. | only if user asks for fix |
 | `/query` | Cross-cutting | Search vault + LLM Wiki, synthesize answer, optionally file back into appropriate CMDS category (NOT a separate /queries folder). | wiki-worthy + classify |
 | `/status` | Cross-cutting | One-screen vault stage snapshot + recommended next action. **Zero dialogs**, fast. | none |
+| `/seeds` | Cross-cutting | 제목만 걸어둔 씨앗 노트를 씨앗/잔해/How-to 로 가르고 클러스터링 → 글감 제안 + 📚 101/102 허브 생성. **마더십 전용**. | 3분류 확인, 클러스터 승인 |
+| `/harvest` | Cross-cutting | 7볼트 생태계를 가로질러 끊긴 쌍·이미 컴파일된 씨앗·위키 고아·개념 drift 수확. companion 볼트는 **읽기만**. | 적용 승인 |
 
 ### Decision Tree (When to Use Which)
 
@@ -493,6 +496,8 @@ inbox 항목 빠르게 분류·등록          → /connect
 방법론 적용 / 코드·프롬프트 생성     → /develop
 기존 합성 → 외부용 산출물            → /share
 볼트에 질문 (자신의 글 + LLM Wiki)   → /query
+제목만 걸어둔 씨앗 → 글감·허브        → /seeds   (월 1회)
+볼트 생태계 전체 교차 수확           → /harvest (분기 1회)
 위생 점검 (모순/orphan/stale)        → /lint {scope}
 ```
 
